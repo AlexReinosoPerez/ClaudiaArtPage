@@ -3,8 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Claudia - Visual Artist Portfolio. Explore selected works and exhibitions." />
-    <title>Claudia - Visual Artist</title>
+    <meta name="description" content="Claudia — Painter. Figurative works exploring the human body, nature, and femininity. Commission inquiries welcome." />
+    <meta name="keywords" content="figurative painting, contemporary art, commissioned art, painter, claudia reinoso" />
+    <title>Claudia — Painter</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -13,9 +14,16 @@
         <a href="#hero">Claudia</a>
       </div>
       <div class="nav-items">
-        <a href="#works">Works</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+        <a href="#works" data-en="Works" data-es="Obras">Works</a>
+        <a href="#about" data-en="About" data-es="Acerca">About</a>
+        <a href="#exhibitions" data-en="Exhibitions" data-es="Exposiciones">Exhibitions</a>
+        <a href="#commissions" data-en="Commissions" data-es="Encargos">Commissions</a>
+        <a href="#contact" data-en="Contact" data-es="Contacto">Contact</a>
+      </div>
+      <div class="lang-switcher">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <span>/</span>
+        <button class="lang-btn" data-lang="es">ES</button>
       </div>
     </nav>
 
@@ -35,8 +43,15 @@
         </div>
         <div class="hero-subtitle">
           <div class="subtitle-wrapper">
-            <h1>Visual Artist</h1>
+            <h1>Painter</h1>
           </div>
+        </div>
+        <div class="hero-description">
+          <p class="description-line" data-en="Figurative works exploring the human body," data-es="Obras figurativas que exploran el cuerpo humano,">Figurative works exploring the human body,</p>
+          <p class="description-line" data-en="nature, and the essence of femininity" data-es="la naturaleza y la esencia de la feminidad">nature, and the essence of femininity</p>
+        </div>
+        <div class="hero-cta">
+          <a href="#commissions" class="cta-button" data-en="Request a Commission" data-es="Solicitar un Encargo">Request a Commission</a>
         </div>
       </header>
 
@@ -48,99 +63,120 @@
         <div class="gallery">
         <div class="items">
         <div class="items-col">
-          <div class="item item-side">
+          <div class="item item-side" data-artwork="1">
             <div class="item-copy">
               <div class="item-copy-wrapper">
-                <p>Composition I</p>
+                <p class="artwork-title" data-en="Solitude" data-es="Soledad">Solitude</p>
               </div>
               <div class="item-copy-wrapper">
-                <p>2024</p>
+                <p class="artwork-year">2024</p>
+              </div>
+              <div class="item-copy-wrapper">
+                <p class="artwork-details" data-en="Oil on canvas · 60×80 cm" data-es="Óleo sobre lienzo · 60×80 cm">Oil on canvas · 60×80 cm</p>
               </div>
             </div>
-            <div class="item-img">
-              <img src="./assets/img1.jpg" alt="Composition I artwork" />
+            <div class="item-img" role="button" tabindex="0">
+              <img src="./assets/img1.jpg" alt="Solitude painting by Claudia" />
             </div>
           </div>
-          <div class="item item-side">
+          <div class="item item-side" data-artwork="2">
             <div class="item-copy">
               <div class="item-copy-wrapper">
-                <p>Abstract Forms</p>
+                <p class="artwork-title" data-en="Embrace" data-es="Abrazo">Embrace</p>
               </div>
               <div class="item-copy-wrapper">
-                <p>2024</p>
+                <p class="artwork-year">2024</p>
+              </div>
+              <div class="item-copy-wrapper">
+                <p class="artwork-details" data-en="Acrylic on canvas · 50×70 cm" data-es="Acrílico sobre lienzo · 50×70 cm">Acrylic on canvas · 50×70 cm</p>
               </div>
             </div>
-            <div class="item-img">
-              <img src="./assets/img2.jpg" alt="Abstract Forms artwork" />
+            <div class="item-img" role="button" tabindex="0">
+              <img src="./assets/img2.jpg" alt="Embrace painting by Claudia" />
             </div>
           </div>
-          <div class="item item-side">
+          <div class="item item-side" data-artwork="3">
             <div class="item-copy">
               <div class="item-copy-wrapper">
-                <p>Monochrome</p>
+                <p class="artwork-title" data-en="Contemplation" data-es="Contemplación">Contemplation</p>
               </div>
               <div class="item-copy-wrapper">
-                <p>2023</p>
-              </div>
-            </div>
-            <div class="item-img">
-              <img src="./assets/img3.jpg" alt="Monochrome artwork" />
-            </div>
-          </div>
-        </div>
-        <div class="items-col">
-          <div class="item-main">
-            <div class="item-copy">
-              <div class="item-copy-wrapper">
-                <p>Featured Work</p>
+                <p class="artwork-year">2023</p>
               </div>
               <div class="item-copy-wrapper">
-                <p>2024</p>
+                <p class="artwork-details" data-en="Oil on canvas · 70×90 cm" data-es="Óleo sobre lienzo · 70×90 cm">Oil on canvas · 70×90 cm</p>
               </div>
             </div>
-            <div class="item-img">
-              <img src="./assets/img4.jpg" alt="Featured artwork" />
+            <div class="item-img" role="button" tabindex="0">
+              <img src="./assets/img3.jpg" alt="Contemplation painting by Claudia" />
             </div>
           </div>
         </div>
         <div class="items-col">
-          <div class="item item-side">
+          <div class="item-main" data-artwork="4">
             <div class="item-copy">
               <div class="item-copy-wrapper">
-                <p>Texture Study</p>
+                <p class="artwork-title" data-en="Essence" data-es="Esencia">Essence</p>
               </div>
               <div class="item-copy-wrapper">
-                <p>2023</p>
+                <p class="artwork-year">2024</p>
+              </div>
+              <div class="item-copy-wrapper">
+                <p class="artwork-details" data-en="Oil on canvas · 100×120 cm" data-es="Óleo sobre lienzo · 100×120 cm">Oil on canvas · 100×120 cm</p>
               </div>
             </div>
-            <div class="item-img">
-              <img src="./assets/img5.jpg" alt="Texture Study artwork" />
+            <div class="item-img" role="button" tabindex="0">
+              <img src="./assets/img4.jpg" alt="Essence painting by Claudia" />
             </div>
           </div>
-          <div class="item item-side">
+        </div>
+        <div class="items-col">
+          <div class="item item-side" data-artwork="5">
             <div class="item-copy">
               <div class="item-copy-wrapper">
-                <p>Light & Shadow</p>
+                <p class="artwork-title" data-en="Bloom" data-es="Floración">Bloom</p>
               </div>
               <div class="item-copy-wrapper">
-                <p>2023</p>
+                <p class="artwork-year">2023</p>
+              </div>
+              <div class="item-copy-wrapper">
+                <p class="artwork-details" data-en="Mixed media · 65×85 cm" data-es="Técnica mixta · 65×85 cm">Mixed media · 65×85 cm</p>
               </div>
             </div>
-            <div class="item-img">
-              <img src="./assets/img6.jpg" alt="Light & Shadow artwork" />
+            <div class="item-img" role="button" tabindex="0">
+              <img src="./assets/img5.jpg" alt="Bloom painting by Claudia" />
             </div>
           </div>
-          <div class="item item-side">
+          <div class="item item-side" data-artwork="6">
             <div class="item-copy">
               <div class="item-copy-wrapper">
-                <p>Ethereal</p>
+                <p class="artwork-title" data-en="Reflection" data-es="Reflejo">Reflection</p>
               </div>
               <div class="item-copy-wrapper">
-                <p>2024</p>
+                <p class="artwork-year">2023</p>
+              </div>
+              <div class="item-copy-wrapper">
+                <p class="artwork-details" data-en="Oil on canvas · 55×75 cm" data-es="Óleo sobre lienzo · 55×75 cm">Oil on canvas · 55×75 cm</p>
               </div>
             </div>
-            <div class="item-img">
-              <img src="./assets/img7.jpg" alt="Ethereal artwork" />
+            <div class="item-img" role="button" tabindex="0">
+              <img src="./assets/img6.jpg" alt="Reflection painting by Claudia" />
+            </div>
+          </div>
+          <div class="item item-side" data-artwork="7">
+            <div class="item-copy">
+              <div class="item-copy-wrapper">
+                <p class="artwork-title" data-en="Whisper" data-es="Susurro">Whisper</p>
+              </div>
+              <div class="item-copy-wrapper">
+                <p class="artwork-year">2024</p>
+              </div>
+              <div class="item-copy-wrapper">
+                <p class="artwork-details" data-en="Acrylic on canvas · 60×80 cm" data-es="Acrílico sobre lienzo · 60×80 cm">Acrylic on canvas · 60×80 cm</p>
+              </div>
+            </div>
+            <div class="item-img" role="button" tabindex="0">
+              <img src="./assets/img7.jpg" alt="Whisper painting by Claudia" />
             </div>
           </div>
         </div>
@@ -151,12 +187,54 @@
       <!-- About Section -->
       <section id="about" class="about-section">
         <h2 class="section-title">
-          <span class="title-wrapper">About</span>
+          <span class="title-wrapper" data-en="About" data-es="Acerca">About</span>
         </h2>
         <div class="about-content">
           <div class="about-text">
-            <p>Claudia is a contemporary visual artist exploring the intersection of light, texture, and form through mixed media works.</p>
-            <p>Her practice focuses on creating minimal compositions that invite contemplation and emotional response.</p>
+            <p data-en="Claudia is a painter whose figurative works explore themes of human connection, nature, and femininity with sensitivity and depth." data-es="Claudia es una pintora cuyas obras figurativas exploran temas de conexión humana, naturaleza y feminidad con sensibilidad y profundidad.">Claudia is a painter whose figurative works explore themes of human connection, nature, and femininity with sensitivity and depth.</p>
+            <p data-en="Her practice is rooted in careful observation and a contemplative approach to color, texture, and form." data-es="Su práctica se basa en la observación cuidadosa y un enfoque contemplativo del color, la textura y la forma.">Her practice is rooted in careful observation and a contemplative approach to color, texture, and form.</p>
+            <p data-en="Each piece is created with intention, inviting viewers into a space of reflection." data-es="Cada pieza se crea con intención, invitando a los espectadores a un espacio de reflexión.">Each piece is created with intention, inviting viewers into a space of reflection.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Exhibitions Section -->
+      <section id="exhibitions" class="exhibitions-section">
+        <h2 class="section-title">
+          <span class="title-wrapper" data-en="Exhibitions" data-es="Exposiciones">Exhibitions</span>
+        </h2>
+        <div class="exhibitions-list">
+          <div class="exhibition-item">
+            <p class="exhibition-name" data-en="Essence & Form" data-es="Esencia y Forma">Essence & Form</p>
+            <p class="exhibition-location" data-en="Galería Arte Contemporáneo, Madrid" data-es="Galería Arte Contemporáneo, Madrid">Galería Arte Contemporáneo, Madrid</p>
+            <p class="exhibition-year">2024</p>
+          </div>
+          <div class="exhibition-item">
+            <p class="exhibition-name" data-en="Feminine Landscapes" data-es="Paisajes Femeninos">Feminine Landscapes</p>
+            <p class="exhibition-location" data-en="Espacio Cultural, Barcelona" data-es="Espacio Cultural, Barcelona">Espacio Cultural, Barcelona</p>
+            <p class="exhibition-year">2023</p>
+          </div>
+          <div class="exhibition-item">
+            <p class="exhibition-name" data-en="Collective: New Voices" data-es="Colectiva: Nuevas Voces">Collective: New Voices</p>
+            <p class="exhibition-location" data-en="Fundación Arte Vivo, Sevilla" data-es="Fundación Arte Vivo, Sevilla">Fundación Arte Vivo, Sevilla</p>
+            <p class="exhibition-year">2023</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Commissions Section (Primary Conversion) -->
+      <section id="commissions" class="commissions-section">
+        <h2 class="section-title">
+          <span class="title-wrapper" data-en="Commissions" data-es="Encargos">Commissions</span>
+        </h2>
+        <div class="commissions-content">
+          <div class="commissions-text">
+            <p data-en="Claudia accepts a limited number of commissioned works each year." data-es="Claudia acepta un número limitado de obras por encargo cada año.">Claudia accepts a limited number of commissioned works each year.</p>
+            <p data-en="Each painting is unique and created through a personalized process in close collaboration with the client." data-es="Cada pintura es única y se crea mediante un proceso personalizado en estrecha colaboración con el cliente.">Each painting is unique and created through a personalized process in close collaboration with the client.</p>
+            <p data-en="Whether you envision a portrait, a figurative piece, or an exploration of a particular theme, she brings thoughtful attention to every commission." data-es="Ya sea que imagines un retrato, una pieza figurativa o la exploración de un tema particular, ella aporta atención cuidadosa a cada encargo.">Whether you envision a portrait, a figurative piece, or an exploration of a particular theme, she brings thoughtful attention to every commission.</p>
+          </div>
+          <div class="commissions-cta">
+            <a href="mailto:hola@claudiareinoso.com?subject=Commission Inquiry" class="cta-button primary" data-en="Request a Commission" data-es="Solicitar un Encargo">Request a Commission</a>
           </div>
         </div>
       </section>
@@ -164,14 +242,34 @@
       <!-- Contact Section -->
       <section id="contact" class="contact-section">
         <h2 class="section-title">
-          <span class="title-wrapper">Contact</span>
+          <span class="title-wrapper" data-en="Contact" data-es="Contacto">Contact</span>
         </h2>
         <div class="contact-content">
-          <p>For inquiries and commissions:</p>
-          <a href="mailto:hello@claudiaart.com" class="contact-email">hello@claudiaart.com</a>
+          <div class="contact-methods">
+            <div class="contact-item">
+              <p class="contact-label" data-en="Email" data-es="Correo">Email</p>
+              <a href="mailto:hola@claudiareinoso.com" class="contact-link">hola@claudiareinoso.com</a>
+            </div>
+            <div class="contact-item">
+              <p class="contact-label" data-en="Instagram" data-es="Instagram">Instagram</p>
+              <a href="https://instagram.com/claudiareinosoo" target="_blank" rel="noopener noreferrer" class="contact-link">@claudiareinosoo</a>
+            </div>
+          </div>
         </div>
       </section>
     </main>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox">
+      <button class="lightbox-close" aria-label="Close">&times;</button>
+      <div class="lightbox-content">
+        <img src="" alt="" id="lightbox-img">
+        <div class="lightbox-info">
+          <p class="lightbox-title"></p>
+          <p class="lightbox-details"></p>
+        </div>
+      </div>
+    </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>

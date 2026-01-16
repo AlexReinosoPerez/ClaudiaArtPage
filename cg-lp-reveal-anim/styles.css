@@ -32,24 +32,57 @@ nav {
   position: fixed;
   top: 0;
   width: 100%;
-  padding: 1em 2em;
+  padding: 1.5em 2em;
   display: flex;
   align-items: center;
   gap: 2em;
-  background: rgba(196, 196, 176, 0.95);
+  background: rgba(196, 196, 176, 0.98);
   backdrop-filter: blur(10px);
   z-index: 1000;
 }
 
 nav .logo a {
-  font-weight: bold;
+  font-weight: 600;
   font-size: 16px;
+  letter-spacing: 0.05em;
 }
 
 nav .nav-items {
   display: flex;
-  gap: 2em;
+  gap: 2.5em;
   margin-left: auto;
+}
+
+.lang-switcher {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.lang-btn {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  color: #000;
+  opacity: 0.4;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  padding: 0;
+}
+
+.lang-btn.active {
+  opacity: 1;
+}
+
+.lang-btn:hover {
+  opacity: 0.7;
+}
+
+.lang-switcher span {
+  font-size: 12px;
+  opacity: 0.4;
 }
 
 .container {
@@ -67,12 +100,12 @@ nav .nav-items {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 1.5rem;
 }
 
 .hero-title {
   display: flex;
   justify-content: center;
-  margin-bottom: 2rem;
 }
 
 .hero-title-part {
@@ -87,8 +120,49 @@ nav .nav-items {
 .subtitle-wrapper h1 {
   font-size: 1.5rem;
   font-weight: 300;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
+}
+
+.hero-description {
+  text-align: center;
+  max-width: 600px;
+  margin-top: 1rem;
+  overflow: hidden;
+}
+
+.description-line {
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.6;
+  opacity: 0.8;
+}
+
+.hero-cta {
+  margin-top: 2rem;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 1em 2.5em;
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  transition: all 0.4s ease;
+  border-radius: 2px;
+}
+
+.cta-button:hover {
+  background: rgba(0, 0, 0, 1);
+  transform: translateY(-2px);
+}
+
+.cta-button.primary {
+  padding: 1.2em 3em;
+  font-size: 15px;
 }
 
 /* Sections */
@@ -160,9 +234,31 @@ section {
 .item-copy-wrapper p {
   position: relative;
   margin-bottom: 0.25em;
-  font-weight: 500;
-  font-size: 13.5px;
-  line-height: 100%;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 140%;
+}
+
+.artwork-title {
+  font-weight: 500 !important;
+  font-size: 14px !important;
+}
+
+.artwork-year {
+  opacity: 0.6;
+}
+
+.artwork-details {
+  font-size: 12px !important;
+  opacity: 0.7;
+}
+
+.item-img {
+  cursor: pointer;
+}
+
+.item-img:hover {
+  opacity: 0.95;
 }
 
 .item-side .item-img {
@@ -212,19 +308,92 @@ section {
 
 /* About Section */
 .about-section {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .about-content {
-  max-width: 800px;
+  max-width: 700px;
   margin: 0 auto;
 }
 
 .about-text p {
-  font-size: 1.2rem;
-  line-height: 1.8;
+  font-size: 1.1rem;
+  line-height: 1.9;
   margin-bottom: 1.5rem;
   font-weight: 300;
+  text-align: center;
+}
+
+/* Exhibitions Section */
+.exhibitions-section {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.exhibitions-list {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.exhibition-item {
+  text-align: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.exhibition-item:last-child {
+  border-bottom: none;
+}
+
+.exhibition-name {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.exhibition-location {
+  font-size: 1rem;
+  font-weight: 300;
+  opacity: 0.7;
+  margin-bottom: 0.3rem;
+}
+
+.exhibition-year {
+  font-size: 0.9rem;
+  font-weight: 300;
+  opacity: 0.5;
+}
+
+/* Commissions Section */
+.commissions-section {
+  background: rgba(255, 255, 255, 0.3);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.commissions-content {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.commissions-text {
+  margin-bottom: 3rem;
+}
+
+.commissions-text p {
+  font-size: 1.1rem;
+  line-height: 1.9;
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+}
+
+.commissions-cta {
+  margin-top: 2rem;
 }
 
 /* Contact Section */
@@ -233,26 +402,113 @@ section {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  min-height: 80vh;
 }
 
 .contact-content {
   text-align: center;
 }
 
-.contact-content p {
-  font-size: 1rem;
-  margin-bottom: 1rem;
-  font-weight: 300;
+.contact-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  margin-top: 2rem;
 }
 
-.contact-email {
-  font-size: 1.5rem;
+.contact-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contact-label {
+  font-size: 0.85rem;
   font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.5;
+}
+
+.contact-link {
+  font-size: 1.3rem;
+  font-weight: 400;
   transition: opacity 0.3s ease;
 }
 
-.contact-email:hover {
+.contact-link:hover {
   opacity: 0.6;
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(196, 196, 176, 0.98);
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.lightbox.active {
+  display: flex;
+  opacity: 1;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background: none;
+  border: none;
+  font-size: 3rem;
+  font-weight: 300;
+  color: #000;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+  z-index: 2001;
+}
+
+.lightbox-close:hover {
+  opacity: 1;
+}
+
+.lightbox-content {
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+#lightbox-img {
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+}
+
+.lightbox-info {
+  text-align: center;
+}
+
+.lightbox-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.lightbox-details {
+  font-size: 1rem;
+  font-weight: 300;
+  opacity: 0.7;
 }
 
 @media (max-width: 900px) {
@@ -261,15 +517,26 @@ section {
   }
   
   nav .logo a {
-    font-size: 14px;
-  }
+    font-size: 14px;\n  }
   
   nav .nav-items {
-    gap: 1em;
+    gap: 1.5em;
   }
   
   nav .nav-items a {
-    font-size: 12px;
+    font-size: 11px;
+  }
+  
+  .lang-switcher {
+    gap: 0.3em;
+  }
+  
+  .lang-btn {
+    font-size: 10px;
+  }
+  
+  .hero {
+    gap: 1rem;
   }
   
   .hero-title .letter {
@@ -278,6 +545,25 @@ section {
   
   .hero-subtitle h1 {
     font-size: 1rem;
+    letter-spacing: 0.2em;
+  }
+  
+  .hero-description {
+    padding: 0 1.5rem;
+  }
+  
+  .description-line {
+    font-size: 0.9rem;
+  }
+  
+  .cta-button {
+    font-size: 12px;
+    padding: 0.9em 2em;
+  }
+  
+  .cta-button.primary {
+    font-size: 13px;
+    padding: 1em 2.5em;
   }
 
   .items {
@@ -320,17 +606,44 @@ section {
   
   .about-text p {
     font-size: 1rem;
-    line-height: 1.6;
+    line-height: 1.7;
   }
   
-  .contact-email {
-    font-size: 1.2rem;
+  .commissions-text p {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  
+  .exhibitions-list {
+    gap: 2rem;
+  }
+  
+  .exhibition-name {
+    font-size: 1.1rem;
+  }
+  
+  .contact-link {
+    font-size: 1.1rem;
+  }
+  
+  .lightbox-close {
+    top: 1rem;
+    right: 1rem;
+    font-size: 2.5rem;
+  }
+  
+  #lightbox-img {
+    max-height: 60vh;
   }
 }
 
 @media (max-width: 600px) {
-  nav .nav-items a {
-    font-size: 11px;
+  nav .nav-items {
+    display: none;
+  }
+  
+  .lang-switcher {
+    margin-left: auto;
   }
   
   .hero-title .letter {
@@ -342,11 +655,28 @@ section {
     letter-spacing: 0.15em;
   }
   
+  .description-line {
+    font-size: 0.85rem;
+  }
+  
   .item-side {
     height: 200px;
   }
   
   .item-main {
     height: 350px;
+  }
+  
+  section {
+    padding: 2.5rem 1rem;
+  }
+  
+  .about-text p,
+  .commissions-text p {
+    font-size: 0.95rem;
+  }
+  
+  .exhibition-item {
+    padding: 1rem;
   }
 }
