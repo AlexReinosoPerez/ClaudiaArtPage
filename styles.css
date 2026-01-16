@@ -267,6 +267,17 @@ section {
   clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
 }
 
+.item-side .item-img img,
+.item-main .item-img img {
+  transform: scale(1.1);
+  transition: transform 0.6s ease;
+}
+
+.item-side .item-img.revealed img,
+.item-main .item-img.revealed img {
+  transform: scale(1);
+}
+
 .items-col:nth-child(2) {
   flex: 0 0 350px;
   display: flex;
@@ -568,10 +579,12 @@ section {
 
   .items {
     flex-direction: column;
+    gap: 2rem;
   }
   
   .items-col {
     width: 100%;
+    gap: 2rem;
   }
   
   .items-col:nth-child(2) {
@@ -579,11 +592,11 @@ section {
   }
 
   .item-side {
-    height: 250px;
+    height: 350px;
   }
 
   .item-main {
-    height: 400px;
+    height: 450px;
   }
   
   .item:hover {
@@ -660,11 +673,11 @@ section {
   }
   
   .item-side {
-    height: 200px;
+    height: 300px;
   }
   
   .item-main {
-    height: 350px;
+    height: 400px;
   }
   
   section {

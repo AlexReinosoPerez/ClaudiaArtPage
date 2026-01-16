@@ -167,20 +167,27 @@ window.addEventListener("DOMContentLoaded", function () {
 
   // Gallery animations with ScrollTrigger
   gsap.utils.toArray(".item").forEach((item, index) => {
-    const animDuration = isMobile ? 0.8 : 1.2;
+    const animDuration = isMobile ? 1 : 1.2;
+    const itemImg = item.querySelector(".item-img");
     
-    gsap.to(item.querySelector(".item-img"), {
+    // Curtain reveal effect with scale
+    gsap.to(itemImg, {
       clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
       duration: animDuration,
-      ease: "power3.out",
+      ease: "power3.inOut",
       scrollTrigger: {
         trigger: item,
-        start: "top 80%",
-        end: "top 50%",
-        toggleActions: "play none none none"
+        start: "top 85%",
+        end: "top 40%",
+        toggleActions: "play none none none",
+        onEnter: () => {
+          // Add revealed class for image scale animation
+          itemImg.classList.add('revealed');
+        }
       }
     });
 
+    // Text reveal with slight delay
     gsap.to(item.querySelectorAll(".item-copy-wrapper p"), {
       y: 0,
       opacity: 1,
@@ -189,7 +196,7 @@ window.addEventListener("DOMContentLoaded", function () {
       ease: "power3.out",
       scrollTrigger: {
         trigger: item,
-        start: "top 75%",
+        start: "top 80%",
         toggleActions: "play none none none"
       }
     });
