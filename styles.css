@@ -15,6 +15,19 @@ body {
   background-color: rgb(196, 196, 176);
 }
 
+/* Prevent horizontal scroll from parallax */
+.container {
+  width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding-top: 60px;
+}
+
+/* Smooth section transitions */
+section {
+  will-change: opacity, transform;
+}
+
 img {
   width: 100%;
   height: 100%;
@@ -92,7 +105,7 @@ nav .nav-items {
   padding-top: 60px;
 }
 
-/* Hero Section */
+/* Hero cinematic zoom container */
 .hero {
   position: relative;
   height: 100vh;
@@ -101,6 +114,8 @@ nav .nav-items {
   align-items: center;
   justify-content: center;
   gap: 1.5rem;
+  transform-origin: center center;
+  will-change: transform;
 }
 
 .hero-title {
@@ -169,6 +184,7 @@ nav .nav-items {
 section {
   min-height: 100vh;
   padding: 4rem 2rem;
+  will-change: opacity, transform;
 }
 
 .section-title {
@@ -181,23 +197,27 @@ section {
 
 .title-wrapper {
   display: inline-block;
+  will-change: transform, opacity;
 }
 
 /* Works Section */
 .works-section {
   padding: 2rem 1rem 4rem;
+  overflow: hidden;
 }
 
 .gallery {
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
+  overflow: hidden;
 }
 
 .items {
   width: 100%;
   display: flex;
   gap: 1rem;
+  will-change: transform;
 }
 
 .items-col {
@@ -205,6 +225,7 @@ section {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  will-change: transform;
 }
 
 .item {
@@ -213,6 +234,7 @@ section {
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease;
+  will-change: transform, opacity;
 }
 
 .item:hover {
@@ -577,6 +599,7 @@ section {
     padding: 1em 2.5em;
   }
 
+  /* Reset parallax transforms on mobile */
   .items {
     flex-direction: column;
     gap: 2rem;
@@ -585,6 +608,7 @@ section {
   .items-col {
     width: 100%;
     gap: 2rem;
+    transform: none !important;
   }
   
   .items-col:nth-child(2) {

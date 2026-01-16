@@ -3,6 +3,16 @@ window.addEventListener("DOMContentLoaded", function () {
   gsap.registerPlugin(ScrollTrigger);
 
   // ============================================
+  // RESPONSIVE & ACCESSIBILITY DETECTION
+  // ============================================
+  const isMobile = window.innerWidth <= 900;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  
+  // Adjust durations based on device and preferences
+  const baseDuration = prefersReducedMotion ? 0.3 : (isMobile ? 0.6 : 0.8);
+  const longDuration = prefersReducedMotion ? 0.4 : (isMobile ? 0.8 : 1.2);
+
+  // ============================================
   // LANGUAGE SWITCHER
   // ============================================
   let currentLang = 'en';
@@ -117,113 +127,202 @@ window.addEventListener("DOMContentLoaded", function () {
   });
 
   // ============================================
-  // GSAP ANIMATIONS
+  // CINEMATIC INTRO SEQUENCE (TASK 4)
   // ============================================
   
-  // Detect if mobile for lighter animations
-  const isMobile = window.innerWidth <= 900;
-
-  // Initial setup
+  // Initial setup - hide everything
   gsap.set("nav", { y: -100, opacity: 0 });
-  gsap.set(".letter-wrapper", { y: "100%" });
+  gsap.set(".letter-wrapper", { y: "100%", opacity: 0 });
   gsap.set(".subtitle-wrapper h1", { y: 50, opacity: 0 });
   gsap.set(".description-line", { y: 30, opacity: 0 });
-  gsap.set(".hero-cta", { y: 30, opacity: 0 });
+  gsap.set(".hero-cta", { y: 30, opacity: 0, scale: 0.95 });
   gsap.set(".item-copy-wrapper p", { y: 30, opacity: 0 });
   gsap.set(".item-img", { clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)" });
 
-  // Hero animation timeline - slower, more elegant
-  gsap.defaults({ duration: 1.2, ease: "power3.out" });
-  const heroTl = gsap.timeline({ delay: 0.5 });
+  // Cinematic intro timeline
+  gsap.defaults({ ease: "power2.out" });
+  const introTl = gsap.timeline({ delay: 0.3 });
 
-  heroTl
+  // Hero title reveal with cinematic timing
+  introTl
     .to(".letter-wrapper", {
       y: 0,
-      stagger: 0.1,
-      duration: 1.4,
+      opacity: 1,
+      stagger: 0.08,
+      duration: longDuration,
       ease: "power4.out"
     })
     .to(".subtitle-wrapper h1", {
       y: 0,
       opacity: 1,
-      duration: 1
-    }, "-=0.8")
+      duration: baseDuration
+    }, "-=0.6")
     .to(".description-line", {
       y: 0,
       opacity: 1,
-      stagger: 0.15,
-      duration: 0.9
-    }, "-=0.5")
+      stagger: 0.12,
+      duration: baseDuration
+    }, "-=0.4")
     .to(".hero-cta", {
       y: 0,
       opacity: 1,
-      duration: 0.9
-    }, "-=0.4")
+      scale: 1,
+      duration: baseDuration,
+      ease: "back.out(1.2)"
+    }, "-=0.3")
     .to("nav", {
       y: 0,
       opacity: 1,
-      duration: 1
-    }, "-=0.8");
+      duration: baseDuration
+    }, "-=0.6");
 
-  // Gallery animations with ScrollTrigger
+  // Subtle hero background zoom (desktop only, respects reduced motion)
+  if (!isMobile && !prefersReducedMotion) {
+    gsap.to(".hero", {
+      scale: 1.03,
+      duration: 12,
+      ease: "none"
+    });
+  }
+
+  // ============================================
+  // ARTWORK REVEAL ON SCROLL (TASK 1)
+  // ============================================
   gsap.utils.toArray(".item").forEach((item, index) => {
-    const animDuration = isMobile ? 1 : 1.2;
     const itemImg = item.querySelector(".item-img");
     
-    // Curtain reveal effect with scale
-    gsap.to(itemImg, {
-      clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-      duration: animDuration,
-      ease: "power3.inOut",
+    // Cinematic reveal: scale + opacity + curtain
+    const revealTl = gsap.timeline({
       scrollTrigger: {
         trigger: item,
         start: "top 85%",
         end: "top 40%",
-        toggleActions: "play none none none",
-        onEnter: () => {
-          // Add revealed class for image scale animation
-          itemImg.classList.add('revealed');
-        }
+        toggleActions: "play none none none"
       }
     });
 
-    // Text reveal with slight delay
+    revealTl
+      .fromTo(item, 
+        { 
+          scale: 0.9, 
+          opacity: 0 
+        },
+        { 
+          scale: 1, 
+          opacity: 1, 
+          duration: baseDuration,
+          ease: "power2.out"
+        }
+      )
+      .to(itemImg, {
+        clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+        duration: longDuration,
+        ease: "power3.inOut",
+        onComplete: () => {
+          itemImg.classList.add('revealed');
+        }
+      }, "-=0.4");
+
+    // Text reveal with stagger
     gsap.to(item.querySelectorAll(".item-copy-wrapper p"), {
       y: 0,
       opacity: 1,
-      stagger: 0.12,
-      duration: 0.9,
-      ease: "power3.out",
+      stagger: 0.1,
+      duration: baseDuration,
+      ease: "power2.out",
       scrollTrigger: {
         trigger: item,
-        start: "top 80%",
+        start: "top 75%",
         toggleActions: "play none none none"
       }
     });
   });
 
-  // Section titles animation
+  // ============================================
+  // PARALLAX ON ARTWORK ROWS (TASK 3)
+  // ============================================
+  if (!isMobile && !prefersReducedMotion) {
+    const itemsCols = gsap.utils.toArray(".items-col");
+    
+    itemsCols.forEach((col, index) => {
+      // Alternating parallax direction
+      const direction = index % 2 === 0 ? -10 : 10;
+      
+      gsap.to(col, {
+        x: `${direction}%`,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".works-section",
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1.5, // Smooth parallax linked to scroll
+          invalidateOnRefresh: true
+        }
+      });
+    });
+  }
+
+  // ============================================
+  // CINEMATIC SECTION TRANSITIONS (TASK 2)
+  // ============================================
+  const sections = [
+    { trigger: ".works-section", element: ".works-section" },
+    { trigger: ".about-section", element: ".about-section" },
+    { trigger: ".exhibitions-section", element: ".exhibitions-section" },
+    { trigger: ".commissions-section", element: ".commissions-section" },
+    { trigger: ".contact-section", element: ".contact-section" }
+  ];
+
+  sections.forEach((section, index) => {
+    gsap.fromTo(section.element,
+      {
+        opacity: 0,
+        y: 50
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: baseDuration,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: section.trigger,
+          start: "top 80%",
+          toggleActions: "play none none none"
+        }
+      }
+    );
+  });
+
+  // Section titles with fade and scale
   gsap.utils.toArray(".section-title").forEach(title => {
-    gsap.from(title.querySelector(".title-wrapper"), {
-      y: 50,
-      opacity: 0,
-      duration: 1.1,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: title,
-        start: "top 85%",
-        toggleActions: "play none none none"
+    gsap.fromTo(title.querySelector(".title-wrapper"),
+      {
+        y: 30,
+        opacity: 0,
+        scale: 0.95
+      },
+      {
+        y: 0,
+        opacity: 1,
+        scale: 1,
+        duration: baseDuration,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: title,
+          start: "top 85%",
+          toggleActions: "play none none none"
+        }
       }
-    });
+    );
   });
 
-  // About section animation
+  // About section text with stagger
   gsap.from(".about-text p", {
-    y: 30,
+    y: 20,
     opacity: 0,
-    stagger: 0.25,
-    duration: 1,
-    ease: "power3.out",
+    stagger: 0.15,
+    duration: baseDuration,
+    ease: "power2.out",
     scrollTrigger: {
       trigger: ".about-section",
       start: "top 70%",
@@ -231,13 +330,13 @@ window.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Exhibitions section animation
+  // Exhibitions with elegant stagger
   gsap.from(".exhibition-item", {
-    y: 40,
+    y: 30,
     opacity: 0,
     stagger: 0.2,
-    duration: 1,
-    ease: "power3.out",
+    duration: baseDuration,
+    ease: "power2.out",
     scrollTrigger: {
       trigger: ".exhibitions-section",
       start: "top 70%",
@@ -245,7 +344,7 @@ window.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Commissions section animation (emphasized for conversion)
+  // Commissions section (emphasized for conversion)
   const commissionsTl = gsap.timeline({
     scrollTrigger: {
       trigger: ".commissions-section",
@@ -256,31 +355,72 @@ window.addEventListener("DOMContentLoaded", function () {
 
   commissionsTl
     .from(".commissions-text p", {
-      y: 30,
+      y: 20,
       opacity: 0,
-      stagger: 0.2,
-      duration: 1,
-      ease: "power3.out"
+      stagger: 0.15,
+      duration: baseDuration,
+      ease: "power2.out"
     })
     .from(".commissions-cta", {
-      y: 30,
+      y: 20,
       opacity: 0,
-      duration: 1,
-      ease: "power3.out"
-    }, "-=0.5");
+      scale: 0.95,
+      duration: baseDuration,
+      ease: "back.out(1.2)"
+    }, "-=0.3");
 
-  // Contact section animation
+  // Contact section with fade
   gsap.from(".contact-item", {
-    y: 30,
+    y: 20,
     opacity: 0,
-    stagger: 0.25,
-    duration: 1,
-    ease: "power3.out",
+    stagger: 0.2,
+    duration: baseDuration,
+    ease: "power2.out",
     scrollTrigger: {
       trigger: ".contact-section",
       start: "top 70%",
       toggleActions: "play none none none"
     }
+  });
+
+  // ============================================
+  // SMOOTH SCROLL INDICATOR (OPTIONAL)
+  // ============================================
+  if (!isMobile) {
+    const scrollProgress = document.createElement('div');
+    scrollProgress.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: rgba(0,0,0,0.3);
+      z-index: 9999;
+      transform-origin: left;
+    `;
+    document.body.appendChild(scrollProgress);
+
+    gsap.to(scrollProgress, {
+      width: "100%",
+      ease: "none",
+      scrollTrigger: {
+        trigger: "body",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 0.3
+      }
+    });
+  }
+
+  // ============================================
+  // REFRESH SCROLLTRIGGER ON RESIZE
+  // ============================================
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 250);
   });
 });
 
