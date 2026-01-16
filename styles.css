@@ -108,12 +108,14 @@ nav .nav-items {
 /* Hero cinematic zoom container */
 .hero {
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 1.5rem;
+  padding: 8rem 2rem 4rem;
   transform-origin: center center;
   will-change: transform;
 }
@@ -183,7 +185,7 @@ nav .nav-items {
 /* Sections */
 section {
   min-height: auto;
-  padding: 5rem 2rem 3rem;
+  padding: 6rem 2rem;
   will-change: opacity, transform;
 }
 
@@ -191,7 +193,7 @@ section {
   font-size: 2rem;
   font-weight: 300;
   text-align: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: 3rem;
   overflow: hidden;
 }
 
@@ -202,7 +204,7 @@ section {
 
 /* Works Section */
 .works-section {
-  padding: 5rem 1rem 4rem;
+  padding: 4rem 1rem 6rem;
   overflow: hidden;
 }
 
@@ -369,12 +371,12 @@ section {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 2.5rem;
 }
 
 .exhibition-item {
   text-align: center;
-  padding: 1rem;
+  padding: 1.5rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
@@ -636,7 +638,7 @@ section {
   }
   
   section {
-    padding: 3rem 1.5rem 2rem;
+    padding: 4rem 1.5rem;
     min-height: auto;
   }
   
