@@ -61,6 +61,14 @@ window.addEventListener("DOMContentLoaded", function () {
       const target = document.querySelector(this.getAttribute('href'));
       if (target) {
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        
+        // Force ScrollTrigger refresh after smooth scroll completes
+        setTimeout(() => {
+          ScrollTrigger.refresh();
+          // Trigger a small scroll to activate any pending animations
+          window.scrollBy(0, 1);
+          setTimeout(() => window.scrollBy(0, -1), 50);
+        }, 800);
       }
     });
   });
@@ -72,6 +80,14 @@ window.addEventListener("DOMContentLoaded", function () {
       const target = document.querySelector(this.getAttribute('href'));
       if (target) {
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        
+        // Force ScrollTrigger refresh after smooth scroll completes
+        setTimeout(() => {
+          ScrollTrigger.refresh();
+          // Trigger a small scroll to activate any pending animations
+          window.scrollBy(0, 1);
+          setTimeout(() => window.scrollBy(0, -1), 50);
+        }, 800);
       }
     });
   });
@@ -470,7 +486,7 @@ window.addEventListener("DOMContentLoaded", function () {
     ease: "power2.out",
     scrollTrigger: {
       trigger: ".about-section",
-      start: "top 70%",
+      start: "top 80%",
       toggleActions: "play none none none"
     }
   });
@@ -484,7 +500,7 @@ window.addEventListener("DOMContentLoaded", function () {
     ease: "power2.out",
     scrollTrigger: {
       trigger: ".exhibitions-section",
-      start: "top 70%",
+      start: "top 80%",
       toggleActions: "play none none none"
     }
   });
@@ -493,7 +509,7 @@ window.addEventListener("DOMContentLoaded", function () {
   const commissionsTl = gsap.timeline({
     scrollTrigger: {
       trigger: ".commissions-section",
-      start: "top 70%",
+      start: "top 80%",
       toggleActions: "play none none none"
     }
   });
@@ -523,10 +539,15 @@ window.addEventListener("DOMContentLoaded", function () {
     ease: "power2.out",
     scrollTrigger: {
       trigger: ".contact-section",
-      start: "top 70%",
+      start: "top 80%",
       toggleActions: "play none none none"
     }
   });
+
+  // Force initial ScrollTrigger refresh to catch visible sections
+  setTimeout(() => {
+    ScrollTrigger.refresh();
+  }, 100);
 
   // ============================================
   // SMOOTH SCROLL INDICATOR (OPTIONAL)
