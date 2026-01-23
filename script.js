@@ -227,10 +227,21 @@ window.addEventListener("DOMContentLoaded", function () {
   if (scrollToTopBtn) {
     scrollToTopBtn.addEventListener('click', () => {
       console.log('Scroll button clicked');
+      console.log('Current scrollY:', window.scrollY);
+      
+      // Close any open overlays first
+      document.querySelectorAll('.about-section, .exhibitions-section, .commissions-section, .contact-section').forEach(section => {
+        section.classList.remove('active');
+      });
+      document.body.style.overflow = '';
+      
+      // Scroll to top
       window.scrollTo({
         top: 0,
         behavior: 'smooth'
       });
+      
+      console.log('Scroll command sent');
     });
   }
 
