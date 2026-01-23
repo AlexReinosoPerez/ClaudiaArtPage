@@ -90,7 +90,16 @@ window.addEventListener("DOMContentLoaded", function () {
         }, 300);
       } else {
         // Normal scroll for hero and works sections
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (targetId === 'works') {
+          // For works section, scroll with offset to show content better
+          const targetPosition = target.offsetTop - 80; // 80px offset from top
+          window.scrollTo({ 
+            top: targetPosition, 
+            behavior: 'smooth' 
+          });
+        } else {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
         
         // Force ScrollTrigger refresh after smooth scroll completes
         setTimeout(() => {
