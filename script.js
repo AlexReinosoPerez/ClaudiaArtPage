@@ -97,12 +97,14 @@ window.addEventListener("DOMContentLoaded", function () {
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
         
-        // Force ScrollTrigger refresh after smooth scroll completes
-        setTimeout(() => {
-          ScrollTrigger.refresh();
-          window.scrollBy(0, 1);
-          setTimeout(() => window.scrollBy(0, -1), 50);
-        }, 800);
+        // Force ScrollTrigger refresh after smooth scroll completes (skip for works)
+        if (targetId !== 'works') {
+          setTimeout(() => {
+            ScrollTrigger.refresh();
+            window.scrollBy(0, 1);
+            setTimeout(() => window.scrollBy(0, -1), 50);
+          }, 800);
+        }
       }
     });
   });
