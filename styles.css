@@ -1592,19 +1592,23 @@ section {
 @media (max-width: 600px) {
   nav {
     padding: 1em 1.2em;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     z-index: 10000;
+    gap: 0.8em;
   }
 
   nav .logo a {
     font-size: 15px;
+    white-space: nowrap;
   }
 
   nav .nav-items {
     display: flex;
-    gap: 1.2em;
+    gap: 0.8em;
     font-size: 12px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    flex: 1;
   }
 
   nav .nav-items a {
@@ -1613,11 +1617,13 @@ section {
     min-height: 44px;
     display: flex;
     align-items: center;
+    white-space: nowrap;
   }
   
   .lang-switcher {
-    margin-left: auto;
+    margin-left: 0;
     gap: 0.4em;
+    flex-shrink: 0;
   }
 
   .lang-btn {
