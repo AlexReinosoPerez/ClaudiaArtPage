@@ -21,7 +21,7 @@ main {
   overflow: hidden;
 }
 
-/* Hide sections that should only be accessible via menu */
+/* Page sections - Full page layouts with navigation */
 .about-section,
 .exhibitions-section,
 .commissions-section,
@@ -37,6 +37,7 @@ main {
   pointer-events: none;
   transition: opacity 0.5s ease, visibility 0s 0.5s, z-index 0s 0.5s;
   overflow-y: auto;
+  background: rgb(196, 196, 176);
 }
 
 .about-section.active,
@@ -550,20 +551,54 @@ section {
   position: relative;
 }
 
-/* About Section */
+/* About Section - Editorial layout with image */
 .about-section {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(240, 240, 230, 0.95));
+  background: rgb(196, 196, 176);
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 6rem 2rem;
+  padding-top: 80px;
 }
 
 .about-content {
-  max-width: 800px;
+  max-width: 1400px;
   margin: 0 auto;
+  padding: 4rem 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+  min-height: calc(100vh - 80px);
+}
+
+.about-image {
+  width: 100%;
+  height: 600px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.about-image::before {
+  content: 'Artist Portrait';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  opacity: 0.3;
+  font-weight: 500;
+}
+
+.about-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about-text-content {
+  padding: 2rem 0;
 }
 
 .about-text p {
@@ -571,7 +606,6 @@ section {
   line-height: 2;
   margin-bottom: 2rem;
   font-weight: 300;
-  text-align: center;
   opacity: 0.9;
 }
 
@@ -579,38 +613,46 @@ section {
   font-size: 1.5rem;
   font-style: italic;
   color: #333;
+  margin-bottom: 3rem;
 }
 
-/* Exhibitions Section */
+.about-section .section-title {
+  grid-column: 1 / -1;
+  text-align: left;
+  margin-bottom: 0;
+}
+
+/* Exhibitions Section - Clean light design */
 .exhibitions-section {
-  background: #1a1a1a;
-  color: #f5f5f5;
+  background: #f5f5f0;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 6rem 2rem;
+  padding-top: 80px;
 }
 
 .exhibitions-section .section-title {
-  color: #f5f5f5;
-  margin-bottom: 4rem;
+  color: #1a1a1a;
+  margin-bottom: 3rem;
+  padding: 3rem 2rem 0;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .exhibitions-list {
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 2rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  padding-bottom: 4rem;
 }
 
 .exhibition-item {
   text-align: left;
-  padding: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.03);
+  padding: 2.5rem;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   transition: all 0.4s ease;
   position: relative;
 }
@@ -620,16 +662,16 @@ section {
   position: absolute;
   top: 0;
   left: 0;
-  width: 3px;
+  width: 4px;
   height: 0;
-  background: #fff;
+  background: #1a1a1a;
   transition: height 0.4s ease;
 }
 
 .exhibition-item:hover {
-  border-color: rgba(255, 255, 255, 0.3);
   transform: translateY(-5px);
-  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.8);
 }
 
 .exhibition-item:hover::before {
@@ -639,48 +681,64 @@ section {
 .exhibition-name {
   font-size: 1.4rem;
   font-weight: 500;
-  margin-bottom: 0.8rem;
+  margin-bottom: 1rem;
   font-family: 'Playfair Display', Georgia, serif;
   font-style: italic;
+  color: #1a1a1a;
 }
 
 .exhibition-location {
   font-size: 1rem;
-  font-weight: 300;
+  font-weight: 400;
   opacity: 0.7;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
+  color: #333;
 }
 
 .exhibition-year {
-  font-size: 0.9rem;
-  font-weight: 300;
+  font-size: 0.85rem;
+  font-weight: 500;
   opacity: 0.5;
   text-transform: uppercase;
   letter-spacing: 2px;
+  color: #666;
 }
 
-/* Commissions Section */
+/* Commissions Section - Split layout with large image */
 .commissions-section {
-  background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
-  color: #f5f5f5;
+  background: rgb(196, 196, 176);
   min-height: 100vh;
+  padding-top: 60px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 6rem 2rem;
-  text-align: center;
+  align-items: stretch;
 }
 
 .commissions-section .section-title {
-  color: #f5f5f5;
-  font-size: 3rem;
-  margin-bottom: 2rem;
+  display: none;
+}
+
+.commissions-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  width: 100%;
+  min-height: calc(100vh - 60px);
 }
 
 .commissions-content {
-  max-width: 800px;
-  margin: 0 auto;
+  padding: 6rem 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(240, 240, 230, 0.3));
+}
+
+.commissions-content h2 {
+  font-size: 3.5rem;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 400;
+  font-style: italic;
+  margin-bottom: 2rem;
+  color: #1a1a1a;
 }
 
 .commissions-text {
@@ -688,29 +746,57 @@ section {
 }
 
 .commissions-text p {
-  font-size: 1.2rem;
-  line-height: 2;
+  font-size: 1.15rem;
+  line-height: 1.9;
   margin-bottom: 1.5rem;
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.9);
+  color: #333;
 }
 
 .commissions-cta {
-  margin-top: 3rem;
+  margin-top: 2rem;
 }
 
 .commissions-cta .cta-button {
-  background: #fff;
-  color: #000;
-  border: 2px solid #fff;
-  font-size: 17px;
-  padding: 1.5em 4em;
+  background: #000;
+  color: #fff;
+  border: 2px solid #000;
+  font-size: 16px;
+  padding: 1.4em 3.5em;
 }
 
 .commissions-cta .cta-button:hover {
   background: transparent;
-  color: #fff;
-  border-color: #fff;
+  color: #000;
+  border-color: #000;
+}
+
+.commissions-image {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.commissions-image::before {
+  content: 'Commission Work';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  opacity: 0.2;
+  font-weight: 500;
+  z-index: 1;
+}
+
+.commissions-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* Contact Section */
@@ -1211,6 +1297,57 @@ section {
   
   .close-line {
     width: 25px;
+  }
+
+  /* About page responsive */
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    padding: 3rem 1.5rem;
+  }
+
+  .about-image {
+    height: 400px;
+    order: 2;
+  }
+
+  .about-text-content {
+    order: 3;
+  }
+
+  .about-text p {
+    font-size: 1.1rem;
+  }
+
+  .about-text p:first-child {
+    font-size: 1.3rem;
+  }
+
+  /* Exhibitions page responsive */
+  .exhibitions-list {
+    grid-template-columns: 1fr;
+    padding: 1.5rem;
+  }
+
+  /* Commissions page responsive */
+  .commissions-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .commissions-content {
+    padding: 3rem 1.5rem;
+  }
+
+  .commissions-content h2 {
+    font-size: 2.5rem;
+  }
+
+  .commissions-text p {
+    font-size: 1rem;
+  }
+
+  .commissions-image {
+    min-height: 400px;
   }
 }
 
