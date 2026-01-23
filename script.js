@@ -90,13 +90,11 @@ window.addEventListener("DOMContentLoaded", function () {
         }, 300);
       } else {
         // Normal scroll for hero and works sections
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        
-        // For works section, add extra scroll after initial scroll
         if (targetId === 'works') {
-          setTimeout(() => {
-            window.scrollBy({ top: 250, behavior: 'smooth' });
-          }, 100);
+          // For works section, scroll to bottom of the section
+          target.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        } else {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
         
         // Force ScrollTrigger refresh after smooth scroll completes
