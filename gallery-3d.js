@@ -230,6 +230,14 @@ window.initGallery3D = function() {
       }
     }
   }
+  
+  // Initialize first slide as active on load
+  setTimeout(() => {
+    const firstSlide = document.getElementById('slide-0');
+    if (firstSlide) {
+      firstSlide.classList.add('active');
+    }
+  }, 100);
 
   function animate() {
     requestAnimationFrame(animate);
