@@ -44,11 +44,15 @@ main {
 .exhibitions-section.active,
 .commissions-section.active,
 .contact-section.active {
-  z-index: 5000;
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  transition: opacity 0.5s ease, visibility 0s, z-index 0s;
+  z-index: 5000 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  transition: opacity 0.5s ease, visibility 0s, z-index 0s !important;
+  transform: none !important;
+  translate: none !important;
+  rotate: none !important;
+  scale: none !important;
 }
 
 /* Close button for overlays */
@@ -155,7 +159,7 @@ nav .logo a {
   border: 2px solid #ffffff;
   border-radius: 50%;
   cursor: pointer;
-  z-index: 9999;
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1004,6 +1008,8 @@ section {
   transition: all 0.4s ease;
   position: relative;
   overflow: hidden;
+  align-items: flex-start;
+  text-align: left;
 }
 
 .contact-item::before {
@@ -1042,6 +1048,9 @@ section {
   transition: all 0.3s ease;
   color: #000;
   position: relative;
+  display: inline-block;
+  word-break: break-all;
+  line-height: 1.4;
 }
 
 .contact-link:hover {
@@ -1628,5 +1637,37 @@ section {
   .artwork-detail-description {
     font-size: 0.95rem;
     text-align: left;
+  }
+
+  /* Mobile: Touch instructions for carousel */
+  .canvas-container::after {
+    content: 'Swipe left/right to navigate';
+    bottom: 80px;
+    font-size: 0.7rem;
+    opacity: 0.5;
+  }
+
+  /* Mobile: Scroll button positioning */
+  .scroll-to-top {
+    left: 1rem;
+    width: 45px;
+    height: 45px;
+  }
+
+  /* Mobile: Contact section */
+  .contact-methods {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .contact-intro {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+
+  .contact-link {
+    font-size: 1.2rem;
+    word-break: break-word;
   }
 }

@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=123456" />
   </head>
   <body>
     <nav>
@@ -24,7 +24,7 @@
         <a href="#about" data-en="About" data-es="Acerca">About</a>
         <a href="#exhibitions" data-en="Exhibitions" data-es="Exposiciones">Exhibitions</a>
         <a href="#commissions" data-en="Commissions" data-es="Encargos">Commissions</a>
-        <a href="#contact" data-en="Contact" data-es="Contacto">Contact</a>
+        <a href="#contact" data-en="Contact" data-es="Contacto" onclick="event.preventDefault(); var el = document.getElementById('contact'); el.classList.add('active'); el.style.transform = 'none'; el.style.opacity = '1'; document.body.style.overflow='hidden'; console.log('Contact clicked inline');">Contact</a>
       </div>
       <div class="lang-switcher">
         <button class="lang-btn active" data-lang="en">EN</button>
@@ -246,7 +246,7 @@
       </section>
 
       <!-- Contact Section -->
-      <section id="contact" class="contact-section">
+      <section id="contact" class="contact-section" style="z-index: 999999 !important; position: fixed !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100vh !important;">
         <button class="overlay-close" aria-label="Close"></button>
         <h2 class="section-title">
           <span class="title-wrapper" data-en="Contact" data-es="Contacto">Contact</span>

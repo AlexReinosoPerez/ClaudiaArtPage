@@ -65,16 +65,20 @@ window.addEventListener("DOMContentLoaded", function () {
       const targetId = this.getAttribute('href').substring(1);
       const target = document.querySelector(`#${targetId}`);
       
+      console.log('Clicked on:', targetId, 'Target found:', target);
+      
       if (!target) return;
       
       // If it's an overlay section, show it as overlay
       if (overlaySections.includes(targetId)) {
+        console.log('Opening overlay:', targetId);
         // Hide all overlays first
         document.querySelectorAll('.about-section, .exhibitions-section, .commissions-section, .contact-section').forEach(section => {
           section.classList.remove('active');
         });
         // Show the target overlay
         target.classList.add('active');
+        console.log('Added active class to:', targetId);
         // Disable body scroll when overlay is open
         document.body.style.overflow = 'hidden';
         
@@ -156,6 +160,11 @@ window.addEventListener("DOMContentLoaded", function () {
     btn.addEventListener('click', function() {
       document.querySelectorAll('.about-section, .exhibitions-section, .commissions-section, .contact-section').forEach(section => {
         section.classList.remove('active');
+        // Clear GSAP inline styles from contact section
+        if (section.id === 'contact') {
+          gsap.set(section, { clearProps: "all" });
+          gsap.set(section.querySelectorAll('.title-wrapper, .contact-item'), { clearProps: "all" });
+        }
       });
       document.body.style.overflow = 'auto';
     });
@@ -168,6 +177,11 @@ window.addEventListener("DOMContentLoaded", function () {
       if (anyOverlayActive) {
         document.querySelectorAll('.about-section, .exhibitions-section, .commissions-section, .contact-section').forEach(section => {
           section.classList.remove('active');
+          // Clear GSAP inline styles from contact section
+          if (section.id === 'contact') {
+            gsap.set(section, { clearProps: "all" });
+            gsap.set(section.querySelectorAll('.title-wrapper, .contact-item'), { clearProps: "all" });
+          }
         });
         document.body.style.overflow = 'auto';
       }
@@ -606,6 +620,10 @@ window.addEventListener("DOMContentLoaded", function () {
 
   // Section titles with fade and scale
   gsap.utils.toArray(".section-title").forEach(title => {
+    // Skip overlay sections to avoid conflicts
+    if (title.closest('.about-section, .exhibitions-section, .commissions-section, .contact-section')) {
+      return;
+    }
     gsap.fromTo(title.querySelector(".title-wrapper"),
       {
         y: 30,
@@ -680,7 +698,8 @@ window.addEventListener("DOMContentLoaded", function () {
       ease: "back.out(1.2)"
     }, "-=0.3");
 
-  // Contact section with fade
+  // Contact section with fade - DISABLED for overlay mode
+  /*
   gsap.from(".contact-item", {
     y: 20,
     opacity: 0,
@@ -693,6 +712,7 @@ window.addEventListener("DOMContentLoaded", function () {
       toggleActions: "play none none none"
     }
   });
+  */
 
   // Force initial ScrollTrigger refresh to catch visible sections
   setTimeout(() => {
