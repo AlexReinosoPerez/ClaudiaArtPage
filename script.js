@@ -681,19 +681,8 @@ window.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Exhibitions with elegant stagger
-  gsap.from(".exhibition-item", {
-    y: 30,
-    opacity: 0,
-    stagger: 0.2,
-    duration: baseDuration,
-    ease: "power2.out",
-    scrollTrigger: {
-      trigger: ".exhibitions-section",
-      start: "top 80%",
-      toggleActions: "play none none none"
-    }
-  });
+  // Exhibitions items - set to visible without animation to avoid styling issues
+  gsap.set(".exhibition-item", { opacity: 1, y: 0 });
 
   // Commissions section (emphasized for conversion)
   const commissionsTl = gsap.timeline({
