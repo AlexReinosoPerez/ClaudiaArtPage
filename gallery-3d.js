@@ -236,5 +236,78 @@ window.initGallery3D = function() {
     renderer.setSize(container.clientWidth, container.clientHeight);
   });
 
+  // Click handler for opening lightbox
+  const raycaster = new THREE.Raycaster();
+  const clickMouse = new THREE.Vector2();
+
+  container.addEventListener('click', (e) => {
+    // Calculate mouse position in normalized device coordinates
+    const rect = container.getBoundingClientRect();
+    clickMouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    clickMouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+
+    raycaster.setFromCamera(clickMouse, camera);
+    
+    // Check for intersections with all paintings
+    const allMeshes = [];
+    paintingGroups.forEach(group => {
+      group.children.forEach(child => {
+        if (child instanceof THREE.Mesh && child.material.map) {
+          allMeshes.push(child);
+        }
+      });
+    });
+
+    const intersects = raycaster.intersectObjects(allMeshes);
+    
+    if (intersects.length > 0) {
+      // Find which painting was clicked
+      const clickedMesh = intersects[0].object;
+      let paintingIndex = -1;
+      
+      paintingGroups.forEach((group, i) => {
+        group.children.forEach(child => {
+          if (child === clickedMesh) {
+            paintingIndex = i;
+          }
+        });
+      });
+
+      if (paintingIndex >= 0) {
+        // Open lightbox with the clicked image
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxTitle = document.querySelector('.lightbox-title');
+        const lightboxDetails = document.querySelector('.lightbox-details');
+        
+        lightboxImg.src = images[paintingIndex];
+        lightboxImg.alt = `Artwork ${paintingIndex + 1}`;
+        
+        // Get info from slide content
+        const slideContent = document.getElementById(`slide-${paintingIndex}`);
+        if (slideContent) {
+          const title = slideContent.querySelector('.slide-title');
+          const catalogueNum = slideContent.querySelector('.catalogue-number');
+          const metaValues = slideContent.querySelectorAll('.meta-value');
+          
+          lightboxTitle.textContent = title ? title.textContent : '';
+          
+          // Build details string
+          let details = catalogueNum ? catalogueNum.textContent : '';
+          if (metaValues.length > 0) {
+            const year = metaValues[0] ? metaValues[0].textContent : '';
+            const medium = metaValues[1] ? metaValues[1].textContent : '';
+            const size = metaValues[2] ? metaValues[2].textContent : '';
+            details += ` • ${year} • ${medium} • ${size}`;
+          }
+          lightboxDetails.textContent = details;
+        }
+        
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+  });
+
   animate();
 };
