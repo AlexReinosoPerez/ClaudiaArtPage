@@ -556,7 +556,7 @@ section {
 
 .scroll-hint {
   position: absolute;
-  top: 100px;
+  top: 120px;
   left: 50px;
   font-size: 0.7rem;
   text-transform: uppercase;
