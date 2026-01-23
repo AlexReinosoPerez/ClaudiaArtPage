@@ -95,7 +95,7 @@ window.addEventListener("DOMContentLoaded", function () {
         // For works section, add extra scroll after initial scroll
         if (targetId === 'works') {
           setTimeout(() => {
-            window.scrollBy({ top: 150, behavior: 'smooth' });
+            window.scrollBy({ top: 250, behavior: 'smooth' });
           }, 100);
         }
         
