@@ -90,17 +90,13 @@ window.addEventListener("DOMContentLoaded", function () {
         }, 300);
       } else {
         // Normal scroll for hero and works sections
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        
+        // For works section, add extra scroll after initial scroll
         if (targetId === 'works') {
-          // For works section, scroll with offset to show content better
-          const navHeight = 60; // Height of navigation
-          const offset = 80; // Additional offset
-          const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight - offset;
-          window.scrollTo({ 
-            top: targetPosition, 
-            behavior: 'smooth' 
-          });
-        } else {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          setTimeout(() => {
+            window.scrollBy({ top: 150, behavior: 'smooth' });
+          }, 100);
         }
         
         // Force ScrollTrigger refresh after smooth scroll completes
