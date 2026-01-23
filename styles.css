@@ -185,8 +185,6 @@ nav .logo a {
   stroke: #ffffff;
   fill: none;
 }
-  transform: rotate(-90deg);
-}
 
 nav .nav-items {
   display: flex;
