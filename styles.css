@@ -1592,7 +1592,7 @@ section {
 @media (max-width: 600px) {
   nav {
     padding: 1em 1.2em;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     z-index: 10000;
     gap: 0.8em;
   }
@@ -1609,6 +1609,8 @@ section {
     flex-wrap: nowrap;
     overflow-x: auto;
     flex: 1;
+    order: 2;
+    width: 100%;
   }
 
   nav .nav-items a {
@@ -1621,9 +1623,10 @@ section {
   }
   
   .lang-switcher {
-    margin-left: 0;
+    margin-left: auto;
     gap: 0.4em;
     flex-shrink: 0;
+    order: 1;
   }
 
   .lang-btn {
