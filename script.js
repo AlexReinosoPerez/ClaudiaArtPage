@@ -65,10 +65,13 @@ window.addEventListener("DOMContentLoaded", function () {
       const targetId = this.getAttribute('href').substring(1);
       const target = document.querySelector(`#${targetId}`);
       
+      console.log('Navigation clicked:', targetId, 'target found:', target);
+      
       if (!target) return;
       
       // If it's an overlay section, show it as overlay
       if (overlaySections.includes(targetId)) {
+        console.log('Opening overlay:', targetId);
         // Hide all overlays first
         document.querySelectorAll('.about-section, .exhibitions-section, .commissions-section, .contact-section').forEach(section => {
           section.classList.remove('active');
@@ -203,22 +206,31 @@ window.addEventListener("DOMContentLoaded", function () {
   // SCROLL TO TOP BUTTON
   // ============================================
   const scrollToTopBtn = document.querySelector('.scroll-to-top');
+  console.log('Scroll button found:', scrollToTopBtn);
   
-  window.addEventListener('scroll', () => {
-    // Show button when scrolled down past hero section
-    if (window.scrollY > window.innerHeight * 0.5) {
-      scrollToTopBtn.classList.add('visible');
-    } else {
-      scrollToTopBtn.classList.remove('visible');
-    }
-  });
-
-  scrollToTopBtn.addEventListener('click', () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
+  if (scrollToTopBtn) {
+    // Make it visible by default for testing
+    scrollToTopBtn.classList.add('visible');
+    
+    window.addEventListener('scroll', () => {
+      // Show button when scrolled down past hero section
+      if (window.scrollY > window.innerHeight * 0.5) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
     });
-  });
+  }
+
+  if (scrollToTopBtn) {
+    scrollToTopBtn.addEventListener('click', () => {
+      console.log('Scroll button clicked');
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
 
   // ============================================
   // FEATURED ARTWORK DETAIL VIEW
