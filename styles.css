@@ -202,132 +202,142 @@ section {
   will-change: transform, opacity;
 }
 
-/* Works Section */
+/* Works Section - 3D Infinite Carousel */
 .works-section {
-  padding: 4rem 1rem 6rem;
-  overflow: hidden;
-}
-
-.gallery {
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  overflow: hidden;
-}
-
-.items {
-  width: 100%;
+  position: relative;
+  padding: 4rem 1rem;
+  min-height: 100vh;
   display: flex;
-  gap: 1rem;
-  will-change: transform;
+  flex-direction: column;
+  overflow: hidden;
+  background: rgb(196, 196, 176);
 }
 
-.items-col {
+.works-section .section-title {
+  position: relative;
+  z-index: 10;
+  margin-bottom: 2rem;
+}
+
+.canvas-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.gallery-ui {
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
   flex: 1;
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  will-change: transform;
+  align-items: center;
 }
 
-.item {
-  position: relative;
-  height: 300px;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  transition: transform 0.3s ease;
-  will-change: transform, opacity;
+.slide-content {
+  position: absolute;
+  top: 25%;
+  left: 8%;
+  width: 30%;
+  max-width: 450px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease-out;
+  pointer-events: auto;
 }
 
-.item:hover {
-  transform: translateY(-5px);
+.slide-content.active {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.item-copy {
-  padding: 0.5em;
-  min-height: 60px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 0.3rem;
+.catalogue-number {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #999;
+  margin-bottom: 1.5rem;
+  display: inline-block;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
 }
 
-.item-copy-wrapper {
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-}
-
-.item-copy-wrapper p {
-  position: relative;
-  margin-bottom: 0.25em;
+.slide-title {
+  font-family: 'Playfair Display', Georgia, serif;
   font-weight: 400;
+  font-style: italic;
+  font-size: 3.5rem;
+  margin: 0 0 1.5rem 0;
+  line-height: 1;
+  color: #0d0d0d;
+}
+
+.slide-description {
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: #444;
+  margin-bottom: 2rem;
+  text-align: justify;
+}
+
+.meta-grid {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  row-gap: 0.8rem;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.meta-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #888;
+  align-self: center;
+}
+
+.meta-value {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #222;
+}
+
+.view-detail-btn {
+  display: inline-block;
+  padding: 0.9em 2.2em;
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  text-decoration: none;
   font-size: 13px;
-  line-height: 140%;
-}
-
-.artwork-title {
-  font-weight: 500 !important;
-  font-size: 14px !important;
-}
-
-.artwork-year {
-  opacity: 0.6;
-}
-
-.artwork-details {
-  font-size: 12px !important;
-  opacity: 0.7;
-}
-
-.item-img {
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  transition: all 0.4s ease;
+  border-radius: 2px;
+  border: none;
   cursor: pointer;
+  font-family: inherit;
 }
 
-.item-img:hover {
-  opacity: 0.95;
+.view-detail-btn:hover {
+  background: rgba(0, 0, 0, 1);
+  transform: translateY(-2px);
 }
 
-.item-side .item-img {
-  flex: 1;
-  overflow: hidden;
-  clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-}
-
-.item-side .item-img img,
-.item-main .item-img img {
-  transform: scale(1.1);
-  transition: transform 0.6s ease;
-}
-
-.item-side .item-img.revealed img,
-.item-main .item-img.revealed img {
-  transform: scale(1);
-}
-
-.items-col:nth-child(2) {
-  flex: 0 0 350px;
-  display: flex;
-  justify-content: center;
-}
-
-.item-main {
-  position: relative;
-  width: 100%;
-  height: 500px;
-  overflow: hidden;
-  transition: transform 0.3s ease;
-}
-
-.item-main:hover {
-  transform: scale(1.02);
-}
-
-.item-main .item-img {
-  overflow: hidden;
-}
-
-.item-main .item-img img {
-  transition: transform 0.3s ease;
+.scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  left: 50px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #aaa;
+  z-index: 10;
 }
 
 .letter {
@@ -556,7 +566,8 @@ section {
   }
   
   nav .logo a {
-    font-size: 14px;\n  }
+    font-size: 14px;
+  }
   
   nav .nav-items {
     gap: 1.5em;
@@ -605,36 +616,34 @@ section {
     padding: 1em 2.5em;
   }
 
-  /* Reset parallax transforms on mobile */
-  .items {
-    flex-direction: column;
-    gap: 2rem;
+  /* Gallery 3D mobile */
+  .slide-content {
+    top: auto;
+    bottom: 10%;
+    left: 5%;
+    right: 5%;
+    width: auto;
+    max-width: none;
   }
   
-  .items-col {
-    width: 100%;
-    gap: 2rem;
-    transform: none !important;
+  .slide-title {
+    font-size: 2.5rem;
   }
   
-  .items-col:nth-child(2) {
-    flex: 1;
-  }
-
-  .item-side {
-    height: 350px;
-  }
-
-  .item-main {
-    height: 450px;
+  .slide-description {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
   }
   
-  .item:hover {
-    transform: none;
+  .meta-grid {
+    grid-template-columns: 70px 1fr;
+    row-gap: 0.6rem;
   }
   
-  .item-main:hover {
-    transform: none;
+  .scroll-hint {
+    bottom: 20px;
+    left: 20px;
+    font-size: 0.6rem;
   }
   
   section {
@@ -912,14 +921,6 @@ section {
     font-size: 0.85rem;
   }
   
-  .item-side {
-    height: 300px;
-  }
-  
-  .item-main {
-    height: 400px;
-  }
-  
   section {
     padding: 2.5rem 1rem 2rem;
   }
@@ -931,6 +932,29 @@ section {
   
   .exhibition-item {
     padding: 1rem;
+  }
+  
+  .slide-content {
+    left: 3%;
+    right: 3%;
+  }
+  
+  .slide-title {
+    font-size: 2rem;
+  }
+  
+  .slide-description {
+    font-size: 0.9rem;
+    text-align: left;
+  }
+  
+  .meta-grid {
+    grid-template-columns: 60px 1fr;
+  }
+  
+  .view-detail-btn {
+    font-size: 12px;
+    padding: 0.8em 2em;
   }
   
   .artwork-detail-title {

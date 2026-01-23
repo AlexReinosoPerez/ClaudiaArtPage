@@ -13,6 +13,16 @@ window.addEventListener("DOMContentLoaded", function () {
   const longDuration = prefersReducedMotion ? 0.4 : (isMobile ? 0.8 : 1.2);
 
   // ============================================
+  // INITIALIZE 3D GALLERY (if Three.js loaded)
+  // ============================================
+  if (typeof THREE !== 'undefined' && typeof initGallery3D === 'function') {
+    // Wait for section to be visible
+    setTimeout(() => {
+      initGallery3D();
+    }, 500);
+  }
+
+  // ============================================
   // LANGUAGE SWITCHER
   // ============================================
   let currentLang = 'en';
@@ -207,20 +217,76 @@ window.addEventListener("DOMContentLoaded", function () {
       }, '-=0.2');
   }
 
-  // Add click handlers to all artwork images
-  document.querySelectorAll('.item-img').forEach(img => {
-    img.addEventListener('click', function() {
-      const item = this.closest('.item');
-      openArtworkDetail(item);
-    });
-    
-    // Keyboard accessibility
-    img.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        const item = this.closest('.item');
-        openArtworkDetail(item);
-      }
+  // Add click handlers to View Detail buttons
+  document.querySelectorAll('.view-detail-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const slideContent = this.closest('.slide-content');
+      const artworkId = slideContent.getAttribute('data-artwork');
+      const title = slideContent.querySelector('.slide-title').textContent;
+      const catalogueNum = slideContent.querySelector('.catalogue-number').textContent;
+      const description = slideContent.querySelector('.slide-description').textContent;
+      const metaValues = slideContent.querySelectorAll('.meta-value');
+      
+      // Populate detail view
+      const imgNum = artworkId;
+      detailImg.src = `./assets/img${imgNum}.jpg`;
+      detailImg.alt = `${title} painting by Claudia`;
+      detailTitle.textContent = title;
+      detailYear.textContent = metaValues[0]?.textContent || '';
+      detailTechnique.textContent = metaValues[1]?.textContent || '';
+      detailDimensions.textContent = metaValues[2]?.textContent || '';
+      detailDescription.textContent = artworkData[artworkId]?.description || description;
+      
+      // Show detail view
+      artworkDetail.classList.add('active');
+      artworkDetail.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      
+      // Reset animations
+      gsap.set(detailImageWrapper, { 
+        clipPath: 'polygon(0 0, 100% 0, 100% 0, 0 0)' 
+      });
+      gsap.set(detailImg, { 
+        scale: 1.08 
+      });
+      gsap.set([detailTitle, '.artwork-detail-info-item', detailDescription], { 
+        y: 30, 
+        opacity: 0 
+      });
+      
+      // Cinematic reveal animation
+      const detailTl = gsap.timeline({ 
+        delay: 0.2,
+        defaults: { ease: 'power3.out' }
+      });
+      
+      detailTl
+        .to(detailImageWrapper, {
+          clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
+          duration: prefersReducedMotion ? 0.4 : 1.2,
+          ease: 'power4.inOut'
+        })
+        .to(detailImg, {
+          scale: 1,
+          duration: prefersReducedMotion ? 0.4 : 1.4,
+          ease: 'power3.out'
+        }, '-=0.8')
+        .to(detailTitle, {
+          y: 0,
+          opacity: 1,
+          duration: prefersReducedMotion ? 0.3 : 0.8
+        }, '-=0.6')
+        .to('.artwork-detail-info-item', {
+          y: 0,
+          opacity: 1,
+          stagger: 0.1,
+          duration: prefersReducedMotion ? 0.3 : 0.6
+        }, '-=0.4')
+        .to(detailDescription, {
+          y: 0,
+          opacity: 1,
+          duration: prefersReducedMotion ? 0.3 : 0.8
+        }, '-=0.3');
     });
   });
 
@@ -285,7 +351,7 @@ window.addEventListener("DOMContentLoaded", function () {
   });
 
   // ============================================
-  // CINEMATIC INTRO SEQUENCE (TASK 4)
+  // CINEMATIC INTRO SEQUENCE
   // ============================================
   
   // Initial setup - hide everything
@@ -294,8 +360,6 @@ window.addEventListener("DOMContentLoaded", function () {
   gsap.set(".subtitle-wrapper h1", { y: 50, opacity: 0 });
   gsap.set(".description-line", { y: 30, opacity: 0 });
   gsap.set(".hero-cta", { y: 30, opacity: 0, scale: 0.95 });
-  gsap.set(".item-copy-wrapper p", { y: 30, opacity: 0 });
-  gsap.set(".item-img", { clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)" });
 
   // Cinematic intro timeline
   gsap.defaults({ ease: "power2.out" });
@@ -344,84 +408,7 @@ window.addEventListener("DOMContentLoaded", function () {
   }
 
   // ============================================
-  // ARTWORK REVEAL ON SCROLL (TASK 1)
-  // ============================================
-  gsap.utils.toArray(".item").forEach((item, index) => {
-    const itemImg = item.querySelector(".item-img");
-    
-    // Cinematic reveal: scale + opacity + curtain
-    const revealTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: item,
-        start: "top 85%",
-        end: "top 40%",
-        toggleActions: "play none none none"
-      }
-    });
-
-    revealTl
-      .fromTo(item, 
-        { 
-          scale: 0.9, 
-          opacity: 0 
-        },
-        { 
-          scale: 1, 
-          opacity: 1, 
-          duration: baseDuration,
-          ease: "power2.out"
-        }
-      )
-      .to(itemImg, {
-        clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-        duration: longDuration,
-        ease: "power3.inOut",
-        onComplete: () => {
-          itemImg.classList.add('revealed');
-        }
-      }, "-=0.4");
-
-    // Text reveal with stagger
-    gsap.to(item.querySelectorAll(".item-copy-wrapper p"), {
-      y: 0,
-      opacity: 1,
-      stagger: 0.1,
-      duration: baseDuration,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: item,
-        start: "top 75%",
-        toggleActions: "play none none none"
-      }
-    });
-  });
-
-  // ============================================
-  // PARALLAX ON ARTWORK ROWS (TASK 3)
-  // ============================================
-  if (!isMobile && !prefersReducedMotion) {
-    const itemsCols = gsap.utils.toArray(".items-col");
-    
-    itemsCols.forEach((col, index) => {
-      // Alternating parallax direction
-      const direction = index % 2 === 0 ? -10 : 10;
-      
-      gsap.to(col, {
-        x: `${direction}%`,
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".works-section",
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 1.5, // Smooth parallax linked to scroll
-          invalidateOnRefresh: true
-        }
-      });
-    });
-  }
-
-  // ============================================
-  // CINEMATIC SECTION TRANSITIONS (TASK 2)
+  // SECTION TRANSITIONS
   // ============================================
   const sections = [
     { trigger: ".works-section", element: ".works-section" },
