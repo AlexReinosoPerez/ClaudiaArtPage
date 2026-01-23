@@ -389,6 +389,7 @@ section {
   height: 100%;
   z-index: 1;
   cursor: default;
+  opacity: 1;
   transition: opacity 0.3s ease;
 }
 
