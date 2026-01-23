@@ -92,7 +92,9 @@ window.addEventListener("DOMContentLoaded", function () {
         // Normal scroll for hero and works sections
         if (targetId === 'works') {
           // For works section, scroll with offset to show content better
-          const targetPosition = target.offsetTop - 80; // 80px offset from top
+          const navHeight = 60; // Height of navigation
+          const offset = 80; // Additional offset
+          const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight - offset;
           window.scrollTo({ 
             top: targetPosition, 
             behavior: 'smooth' 
