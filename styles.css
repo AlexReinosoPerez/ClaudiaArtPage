@@ -156,17 +156,18 @@ nav .logo a {
   border-radius: 50%;
   cursor: pointer;
   z-index: 999;
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
   opacity: 0;
+  visibility: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .scroll-to-top.visible {
-  display: flex;
   opacity: 1;
+  visibility: visible;
 }
 
 .scroll-to-top:hover {
