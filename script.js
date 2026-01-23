@@ -168,6 +168,11 @@ window.addEventListener("DOMContentLoaded", function () {
     // Hide all overlays
     document.querySelectorAll('.about-section, .exhibitions-section, .commissions-section, .contact-section').forEach(section => {
       section.classList.remove('active');
+      // Reset contact inline styles from onclick handler
+      if (section.id === 'contact') {
+        section.style.transform = '';
+        section.style.opacity = '';
+      }
     });
     // Re-enable body scroll
     document.body.style.overflow = 'auto';
@@ -180,6 +185,11 @@ window.addEventListener("DOMContentLoaded", function () {
     btn.addEventListener('click', function() {
       document.querySelectorAll('.about-section, .exhibitions-section, .commissions-section, .contact-section').forEach(section => {
         section.classList.remove('active');
+        // Reset contact inline styles from onclick handler
+        if (section.id === 'contact') {
+          section.style.transform = '';
+          section.style.opacity = '';
+        }
       });
       document.body.style.overflow = 'auto';
     });
@@ -192,6 +202,11 @@ window.addEventListener("DOMContentLoaded", function () {
       if (anyOverlayActive) {
         document.querySelectorAll('.about-section, .exhibitions-section, .commissions-section, .contact-section').forEach(section => {
           section.classList.remove('active');
+          // Reset contact inline styles from onclick handler
+          if (section.id === 'contact') {
+            section.style.transform = '';
+            section.style.opacity = '';
+          }
         });
         document.body.style.overflow = 'auto';
       }

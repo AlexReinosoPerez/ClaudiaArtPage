@@ -1622,8 +1622,16 @@ section {
     padding: 0.3em 0.5em;
   }
   
-  /* Mobile: Fix overlay close button position */
-  .overlay-close {
+  /* Mobile: Fix overlay close button position - lower for non-contact sections */
+  .overlay-close-lower {
+    top: 4.5rem;
+    right: 1rem;
+    width: 35px;
+    height: 35px;
+  }
+  
+  /* Mobile: Keep contact close button at normal position */
+  .contact-section .overlay-close {
     top: 1rem;
     right: 1rem;
     width: 35px;
