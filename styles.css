@@ -692,14 +692,20 @@ section {
   position: relative;
 }
 
-.exhibition-item:hover,
-.exhibition-item.active {
-  background: rgba(255, 255, 255, 0.5);
-  border-left-color: #1a1a1a;
+.exhibition-item:hover {
+  background: rgba(255, 255, 255, 0.4);
+  border-left-color: rgba(26, 26, 26, 0.4);
 }
 
 .exhibition-item.active {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.8);
+  border-left-color: #1a1a1a;
+  border-left-width: 4px;
+}
+
+.exhibition-item.active .exhibition-name {
+  color: #000;
+  font-weight: 600;
 }
 
 .exhibition-name {

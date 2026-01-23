@@ -177,21 +177,27 @@ window.addEventListener("DOMContentLoaded", function () {
   // ============================================
   // EXHIBITIONS INTERACTIVITY
   // ============================================
-  document.querySelectorAll('.exhibition-item').forEach(item => {
-    item.addEventListener('click', function() {
-      const exhibitionIndex = this.getAttribute('data-exhibition');
-      
-      // Update active item
-      document.querySelectorAll('.exhibition-item').forEach(i => i.classList.remove('active'));
-      this.classList.add('active');
-      
-      // Update preview
-      document.querySelectorAll('.exhibition-preview-image').forEach(preview => {
-        preview.classList.remove('active');
+  const exhibitionItems = document.querySelectorAll('.exhibition-item');
+  if (exhibitionItems.length > 0) {
+    exhibitionItems.forEach(item => {
+      item.addEventListener('click', function() {
+        const exhibitionIndex = this.getAttribute('data-exhibition');
+        
+        // Update active item
+        exhibitionItems.forEach(i => i.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Update preview
+        document.querySelectorAll('.exhibition-preview-image').forEach(preview => {
+          preview.classList.remove('active');
+        });
+        const targetPreview = document.querySelector(`[data-preview="${exhibitionIndex}"]`);
+        if (targetPreview) {
+          targetPreview.classList.add('active');
+        }
       });
-      document.querySelector(`[data-preview="${exhibitionIndex}"]`).classList.add('active');
     });
-  });
+  }
 
   // ============================================
   // FEATURED ARTWORK DETAIL VIEW
