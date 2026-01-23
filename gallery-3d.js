@@ -106,22 +106,15 @@ window.initGallery3D = function() {
   const worksSection = document.querySelector('.works-section');
   let isGalleryFocused = false;
   
-  // Gallery gets focus when clicked or when hovering over canvas
-  container.addEventListener('mouseenter', () => {
+  // Gallery gets focus when hovering over works section
+  worksSection.addEventListener('mouseenter', () => {
     isGalleryFocused = true;
-    worksSection.style.cursor = 'grab';
+    document.body.style.overflow = 'hidden'; // Prevent page scroll when in gallery
   });
   
-  container.addEventListener('mouseleave', () => {
+  worksSection.addEventListener('mouseleave', () => {
     isGalleryFocused = false;
-    worksSection.style.cursor = 'default';
-  });
-  
-  // Also focus when clicking anywhere in the works section
-  worksSection.addEventListener('click', (e) => {
-    if (e.target.closest('.canvas-container')) {
-      isGalleryFocused = true;
-    }
+    document.body.style.overflow = ''; // Restore page scroll
   });
   
   // Only capture scroll when gallery is focused

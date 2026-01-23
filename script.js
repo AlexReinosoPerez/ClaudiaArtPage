@@ -55,7 +55,7 @@ window.addEventListener("DOMContentLoaded", function () {
   // ============================================
   // SMOOTH SCROLL
   // ============================================
-  document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+  document.querySelectorAll('nav a[href^="#"], .next-section-btn[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
       e.preventDefault();
       const target = document.querySelector(this.getAttribute('href'));
