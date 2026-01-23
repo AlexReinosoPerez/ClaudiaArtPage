@@ -5,8 +5,8 @@ window.initGallery3D = function() {
     slideCount: 7,
     spacingX: 45,
     pWidth: 14,
-    pHeight: 18,
-    camZ: 30,
+    pHeight: 21,
+    camZ: 35,
     wallAngleY: -0.25,
     snapDelay: 200,
     lerpSpeed: 0.06
