@@ -93,6 +93,19 @@ window.addEventListener("DOMContentLoaded", function () {
         if (targetId === 'works') {
           // For works section, scroll to bottom of the section
           target.scrollIntoView({ behavior: 'smooth', block: 'end' });
+          
+          // Trigger a fake mouseenter event to activate the gallery
+          setTimeout(() => {
+            const worksSection = document.querySelector('.works-section');
+            if (worksSection) {
+              const mouseEnterEvent = new MouseEvent('mouseenter', {
+                bubbles: true,
+                cancelable: true,
+                view: window
+              });
+              worksSection.dispatchEvent(mouseEnterEvent);
+            }
+          }, 1200);
         } else {
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
