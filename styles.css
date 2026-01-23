@@ -69,7 +69,6 @@ main {
   cursor: pointer;
   z-index: 3002;
   padding: 0;
-  display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
@@ -79,6 +78,11 @@ main {
 /* Hide overlay-close by default, show only when section is active */
 .overlay-close {
   display: none;
+}
+
+/* Always show artwork-detail-close */
+.artwork-detail-close {
+  display: flex;
 }
 
 .overlay-close::before,
