@@ -26,29 +26,29 @@ main {
 .exhibitions-section,
 .commissions-section,
 .contact-section {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
-  height: 100vh !important;
-  z-index: -1 !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-  transition: opacity 0.5s ease, visibility 0s 0.5s, z-index 0s !important;
-  overflow: auto !important;
-  background: rgb(196, 196, 176) !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.5s ease, visibility 0s 0.5s, z-index 0s;
+  overflow: auto;
+  background: rgb(196, 196, 176);
 }
 
 .about-section.active,
 .exhibitions-section.active,
 .commissions-section.active,
 .contact-section.active {
-  z-index: 5000 !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
-  transition: opacity 0.5s ease, visibility 0s, z-index 0s !important;
+  z-index: 5000;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.5s ease, visibility 0s, z-index 0s;
 }
   transition: opacity 0.5s ease, visibility 0s, z-index 0s;
 }
@@ -147,43 +147,43 @@ nav .logo a {
 
 /* Scroll to top button */
 .scroll-to-top {
-  position: fixed !important;
-  top: 50% !important;
-  left: 2rem !important;
-  transform: translateY(-50%) !important;
-  width: 50px !important;
-  height: 50px !important;
-  background: #000000 !important;
-  border: 2px solid #ffffff !important;
-  border-radius: 50% !important;
-  cursor: pointer !important;
-  z-index: 9999 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  transition: all 0.3s ease !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
-  pointer-events: auto !important;
+  position: fixed;
+  top: 50%;
+  left: 2rem;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: #000000;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
 }
 
 .scroll-to-top.visible {
-  opacity: 1 !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .scroll-to-top:hover {
-  background: #333333 !important;
-  transform: translateY(-50%) scale(1.1) !important;
+  background: #333333;
+  transform: translateY(-50%) scale(1.1);
 }
 
 .scroll-to-top svg {
-  width: 24px !important;
-  height: 24px !important;
-  stroke: #ffffff !important;
-  fill: none !important;
+  width: 24px;
+  height: 24px;
+  stroke: #ffffff;
+  fill: none;
 }
   transform: rotate(-90deg);
 }
