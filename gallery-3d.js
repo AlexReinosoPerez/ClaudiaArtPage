@@ -253,9 +253,6 @@ window.initGallery3D = function() {
     updateUI(currentScroll);
     renderer.render(scene, camera);
   }
-  
-  // Initialize first slide as active immediately
-  updateUI(0);
 
   window.addEventListener('resize', () => {
     camera.aspect = container.clientWidth / container.clientHeight;
@@ -337,4 +334,9 @@ window.initGallery3D = function() {
   });
 
   animate();
+  
+  // Initialize first slide as active after a brief delay to ensure DOM is ready
+  setTimeout(() => {
+    updateUI(0);
+  }, 100);
 };
