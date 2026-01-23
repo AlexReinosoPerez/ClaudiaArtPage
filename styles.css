@@ -55,31 +55,41 @@ main {
   scale: none !important;
 }
 
-/* Close button for overlays */
-.overlay-close {
+/* Close button for overlays (unified styling) */
+.overlay-close,
+.artwork-detail-close {
   position: fixed;
   top: 2rem;
   right: 2rem;
-  width: 40px;
-  height: 40px;
-  background: rgba(0, 0, 0, 0.6);
+  width: 50px;
+  height: 50px;
+  background: rgba(0, 0, 0, 0.3);
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  z-index: 3000;
-  display: none;
+  z-index: 3002;
+  padding: 0;
+  display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
+  pointer-events: auto;
+}
+
+/* Hide overlay-close by default, show only when section is active */
+.overlay-close {
+  display: none;
 }
 
 .overlay-close::before,
-.overlay-close::after {
+.overlay-close::after,
+.close-line {
   content: '';
   position: absolute;
   width: 20px;
   height: 2px;
   background: #fff;
+  transition: background 0.3s ease;
 }
 
 .overlay-close::before {
@@ -90,8 +100,17 @@ main {
   transform: rotate(-45deg);
 }
 
-.overlay-close:hover {
-  background: rgba(0, 0, 0, 0.9);
+.close-line:first-child {
+  transform: rotate(45deg);
+}
+
+.close-line:last-child {
+  transform: rotate(-45deg);
+}
+
+.overlay-close:hover,
+.artwork-detail-close:hover {
+  background: rgba(0, 0, 0, 0.6);
   transform: rotate(90deg);
 }
 
@@ -1325,54 +1344,12 @@ section {
   visibility: visible;
 }
 
-.artwork-detail-close {
-  position: fixed;
-  top: 2rem;
-  right: 2rem;
-  width: 50px;
-  height: 50px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  z-index: 3001;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.3s ease;
-}
-
-.artwork-detail-close:hover {
-  transform: rotate(90deg);
-}
-
-.close-line {
-  position: absolute;
-  width: 30px;
-  height: 2px;
-  background: rgba(0, 0, 0, 0.9);
-  transition: background 0.3s ease;
-}
-
-.close-line:first-child {
-  transform: rotate(45deg);
-}
-
-.close-line:last-child {
-  transform: rotate(-45deg);
-}
-
-.artwork-detail-close:hover .close-line {
-  background: rgba(0, 0, 0, 1);
-}
-
 .artwork-detail-content {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 6rem 2rem 4rem;
-  pointer-events: none;
 }
 
 .artwork-detail-figure {
@@ -1383,7 +1360,6 @@ section {
   grid-template-columns: 1.5fr 1fr;
   gap: 4rem;
   align-items: center;
-  pointer-events: auto;
 }
 
 .artwork-detail-image-wrapper {
@@ -1499,15 +1475,19 @@ section {
     line-height: 1.7;
   }
   
+  /* Unified close button mobile sizing */
+  .overlay-close,
   .artwork-detail-close {
     top: 1.5rem;
     right: 1.5rem;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
   }
   
+  .overlay-close::before,
+  .overlay-close::after,
   .close-line {
-    width: 25px;
+    width: 18px;
   }
 
   /* About page responsive */
@@ -1644,20 +1624,15 @@ section {
     min-width: 44px;
   }
   
-  /* Mobile: Fix overlay close button position - lower for non-contact sections */
+  /* Mobile: Lower position for non-contact overlay close buttons */
   .overlay-close-lower {
     top: 4.5rem;
-    right: 1rem;
-    width: 35px;
-    height: 35px;
   }
   
-  /* Mobile: Keep contact close button at normal position */
+  /* Mobile: Keep contact close button at top */
   .contact-section .overlay-close {
-    top: 1rem;
-    right: 1rem;
-    width: 35px;
-    height: 35px;
+    top: 1.5rem;
+  }
   }
   
   .hero-title .letter {
