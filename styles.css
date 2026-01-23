@@ -1569,12 +1569,35 @@ section {
 }
 
 @media (max-width: 600px) {
+  nav {
+    padding: 0.8em 1em;
+    flex-wrap: wrap;
+  }
+
+  nav .logo a {
+    font-size: 13px;
+  }
+
   nav .nav-items {
-    display: none;
+    display: flex;
+    gap: 1em;
+    font-size: 9px;
+    flex-wrap: wrap;
+  }
+
+  nav .nav-items a {
+    font-size: 9px;
+    padding: 0.3em 0;
   }
   
   .lang-switcher {
     margin-left: auto;
+    gap: 0.2em;
+  }
+
+  .lang-btn {
+    font-size: 9px;
+    padding: 0.3em 0.5em;
   }
   
   .hero-title .letter {
@@ -1616,6 +1639,12 @@ section {
     border-radius: 8px;
     backdrop-filter: blur(10px);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    position: fixed;
+    z-index: 100;
+  }
+
+  .slide-content.active {
+    opacity: 1 !important;
   }
   
   .slide-title {
