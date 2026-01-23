@@ -611,7 +611,6 @@ window.addEventListener("DOMContentLoaded", function () {
   // SECTION TRANSITIONS
   // ============================================
   const sections = [
-    { trigger: ".works-section", element: ".works-section" },
     { trigger: ".about-section", element: ".about-section" },
     { trigger: ".exhibitions-section", element: ".exhibitions-section" },
     { trigger: ".commissions-section", element: ".commissions-section" },
@@ -637,6 +636,9 @@ window.addEventListener("DOMContentLoaded", function () {
       }
     );
   });
+  
+  // Works section starts visible (no fade-in animation)
+  gsap.set(".works-section", { opacity: 1, y: 0 });
 
   // Section titles with fade and scale
   gsap.utils.toArray(".section-title").forEach(title => {
