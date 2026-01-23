@@ -680,6 +680,216 @@ section {
   }
 }
 
+/* ============================================
+   FEATURED ARTWORK DETAIL VIEW
+   Inspired by high-end editorial galleries
+   Asymmetric, image-dominant, contemplative
+   ============================================ */
+
+.artwork-detail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(196, 196, 176);
+  z-index: 3000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.artwork-detail.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.artwork-detail-close {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 3001;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.artwork-detail-close:hover {
+  transform: rotate(90deg);
+}
+
+.close-line {
+  position: absolute;
+  width: 30px;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.7);
+  transition: background 0.3s ease;
+}
+
+.close-line:first-child {
+  transform: rotate(45deg);
+}
+
+.close-line:last-child {
+  transform: rotate(-45deg);
+}
+
+.artwork-detail-close:hover .close-line {
+  background: rgba(0, 0, 0, 1);
+}
+
+.artwork-detail-content {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 2rem 4rem;
+}
+
+.artwork-detail-figure {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.artwork-detail-image-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  will-change: clip-path;
+}
+
+.artwork-detail-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  transform: scale(1.08);
+  will-change: transform;
+}
+
+.artwork-detail-caption {
+  position: relative;
+  padding: 2rem 0;
+}
+
+.artwork-detail-metadata {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.artwork-detail-title {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 4rem;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.1;
+  margin: 0 0 1rem 0;
+  color: #0d0d0d;
+  will-change: transform, opacity;
+}
+
+.artwork-detail-info {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.2rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  padding-top: 1.5rem;
+}
+
+.artwork-detail-info-item {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.info-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #888;
+  font-weight: 500;
+}
+
+.info-value {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.15rem;
+  font-style: italic;
+  color: #222;
+  font-weight: 400;
+}
+
+.artwork-detail-description {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #444;
+  font-weight: 300;
+  margin: 0;
+  text-align: justify;
+  will-change: transform, opacity;
+}
+
+/* Responsive behavior */
+@media (max-width: 1200px) {
+  .artwork-detail-figure {
+    grid-template-columns: 1.2fr 1fr;
+    gap: 3rem;
+  }
+  
+  .artwork-detail-title {
+    font-size: 3.5rem;
+  }
+  
+  .info-value {
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .artwork-detail-figure {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  
+  .artwork-detail-content {
+    padding: 5rem 1.5rem 3rem;
+  }
+  
+  .artwork-detail-title {
+    font-size: 3rem;
+  }
+  
+  .artwork-detail-description {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  
+  .artwork-detail-close {
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 40px;
+    height: 40px;
+  }
+  
+  .close-line {
+    width: 25px;
+  }
+}
+
 @media (max-width: 600px) {
   nav .nav-items {
     display: none;
@@ -721,5 +931,18 @@ section {
   
   .exhibition-item {
     padding: 1rem;
+  }
+  
+  .artwork-detail-title {
+    font-size: 2.5rem;
+  }
+  
+  .artwork-detail-info-item {
+    grid-template-columns: 80px 1fr;
+  }
+  
+  .artwork-detail-description {
+    font-size: 0.95rem;
+    text-align: left;
   }
 }

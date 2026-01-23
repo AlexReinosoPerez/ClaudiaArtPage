@@ -6,6 +6,9 @@
     <meta name="description" content="Claudia — Painter. Figurative works exploring the human body, nature, and femininity. Commission inquiries welcome." />
     <meta name="keywords" content="figurative painting, contemporary art, commissioned art, painter, claudia reinoso" />
     <title>Claudia — Painter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -258,6 +261,41 @@
         </div>
       </section>
     </main>
+
+    <!-- Featured Artwork Detail View -->
+    <article id="artwork-detail" class="artwork-detail" aria-hidden="true">
+      <button class="artwork-detail-close" aria-label="Close artwork detail">
+        <span class="close-line"></span>
+        <span class="close-line"></span>
+      </button>
+      <div class="artwork-detail-content">
+        <figure class="artwork-detail-figure">
+          <div class="artwork-detail-image-wrapper">
+            <img src="" alt="" id="detail-img" class="artwork-detail-image">
+          </div>
+          <figcaption class="artwork-detail-caption">
+            <div class="artwork-detail-metadata">
+              <h2 class="artwork-detail-title"></h2>
+              <div class="artwork-detail-info">
+                <div class="artwork-detail-info-item">
+                  <span class="info-label" data-en="Year" data-es="Año">Year</span>
+                  <span class="info-value artwork-detail-year"></span>
+                </div>
+                <div class="artwork-detail-info-item">
+                  <span class="info-label" data-en="Technique" data-es="Técnica">Technique</span>
+                  <span class="info-value artwork-detail-technique"></span>
+                </div>
+                <div class="artwork-detail-info-item">
+                  <span class="info-label" data-en="Dimensions" data-es="Dimensiones">Dimensions</span>
+                  <span class="info-value artwork-detail-dimensions"></span>
+                </div>
+              </div>
+              <p class="artwork-detail-description"></p>
+            </div>
+          </figcaption>
+        </figure>
+      </div>
+    </article>
 
     <!-- Lightbox -->
     <div id="lightbox" class="lightbox">

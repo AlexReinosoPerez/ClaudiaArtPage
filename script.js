@@ -67,7 +67,182 @@ window.addEventListener("DOMContentLoaded", function () {
   });
 
   // ============================================
-  // LIGHTBOX
+  // FEATURED ARTWORK DETAIL VIEW
+  // ============================================
+  const artworkDetail = document.getElementById('artwork-detail');
+  const artworkDetailClose = document.querySelector('.artwork-detail-close');
+  const detailImg = document.getElementById('detail-img');
+  const detailTitle = document.querySelector('.artwork-detail-title');
+  const detailYear = document.querySelector('.artwork-detail-year');
+  const detailTechnique = document.querySelector('.artwork-detail-technique');
+  const detailDimensions = document.querySelector('.artwork-detail-dimensions');
+  const detailDescription = document.querySelector('.artwork-detail-description');
+  const detailImageWrapper = document.querySelector('.artwork-detail-image-wrapper');
+
+  // Artwork data with descriptions
+  const artworkData = {
+    '1': {
+      description: 'Captured in the gentle light of morning, this piece explores the boundaries between reality and contemplation. The composition invites the viewer to experience a moment of profound stillness and inner reflection.'
+    },
+    '2': {
+      description: 'A study in human connection and emotional vulnerability. Through careful observation of form and gesture, this work reveals the delicate balance between strength and tenderness that defines the feminine experience.'
+    },
+    '3': {
+      description: 'An exploration of introspection and self-awareness. The subtle interplay of light and shadow creates a meditative space, inviting viewers to pause and engage with their own inner landscape.'
+    },
+    '4': {
+      description: 'This work represents the culmination of a series exploring the essence of being. The dominant scale and intimate detail work together to create an immersive experience that transcends the canvas itself.'
+    },
+    '5': {
+      description: 'Nature\'s cycles of growth and transformation are captured through expressive brushwork and organic forms. The piece celebrates the beauty of natural processes and the vitality of life itself.'
+    },
+    '6': {
+      description: 'A moment frozen in time, inviting contemplation on the nature of perception and memory. The interplay between surface and depth creates a visual dialogue that unfolds slowly before the viewer.'
+    },
+    '7': {
+      description: 'Subtle and evocative, this work speaks in whispers rather than declarations. The restrained palette and delicate application reveal layers of meaning through quiet observation and patient viewing.'
+    }
+  };
+
+  function openArtworkDetail(item) {
+    const img = item.querySelector('img');
+    const title = item.querySelector('.artwork-title');
+    const year = item.querySelector('.artwork-year');
+    const details = item.querySelector('.artwork-details');
+    const artworkId = item.getAttribute('data-artwork');
+    
+    // Parse technique and dimensions from details
+    const detailsText = details.textContent;
+    const parts = detailsText.split('·');
+    const technique = parts[0] ? parts[0].trim() : 'Oil on canvas';
+    const dimensions = parts[1] ? parts[1].trim() : '';
+    
+    // Set content
+    detailImg.src = img.src;
+    detailImg.alt = img.alt;
+    detailTitle.textContent = title.textContent;
+    detailYear.textContent = year.textContent;
+    detailTechnique.textContent = technique;
+    detailDimensions.textContent = dimensions;
+    detailDescription.textContent = artworkData[artworkId]?.description || '';
+    
+    // Show detail view
+    artworkDetail.classList.add('active');
+    artworkDetail.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    
+    // Reset animations
+    gsap.set(detailImageWrapper, { 
+      clipPath: 'polygon(0 0, 100% 0, 100% 0, 0 0)' 
+    });
+    gsap.set(detailImg, { 
+      scale: 1.08 
+    });
+    gsap.set([detailTitle, '.artwork-detail-info-item', detailDescription], { 
+      y: 30, 
+      opacity: 0 
+    });
+    
+    // Cinematic reveal animation
+    const detailTl = gsap.timeline({ 
+      delay: 0.2,
+      defaults: { ease: 'power3.out' }
+    });
+    
+    detailTl
+      // Image curtain reveal
+      .to(detailImageWrapper, {
+        clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
+        duration: prefersReducedMotion ? 0.4 : 1.2,
+        ease: 'power4.inOut'
+      })
+      // Image scale to normal
+      .to(detailImg, {
+        scale: 1,
+        duration: prefersReducedMotion ? 0.4 : 1.4,
+        ease: 'power3.out'
+      }, '-=0.8')
+      // Title reveal
+      .to(detailTitle, {
+        y: 0,
+        opacity: 1,
+        duration: prefersReducedMotion ? 0.3 : 0.8
+      }, '-=0.6')
+      // Info items stagger
+      .to('.artwork-detail-info-item', {
+        y: 0,
+        opacity: 1,
+        stagger: 0.1,
+        duration: prefersReducedMotion ? 0.3 : 0.6
+      }, '-=0.4')
+      // Description fade in
+      .to(detailDescription, {
+        y: 0,
+        opacity: 1,
+        duration: prefersReducedMotion ? 0.3 : 0.8
+      }, '-=0.3');
+  }
+
+  function closeArtworkDetail() {
+    const closeTl = gsap.timeline({
+      onComplete: () => {
+        artworkDetail.classList.remove('active');
+        artworkDetail.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+    });
+    
+    closeTl
+      .to([detailTitle, '.artwork-detail-info-item', detailDescription], {
+        y: -20,
+        opacity: 0,
+        stagger: 0.05,
+        duration: 0.3,
+        ease: 'power2.in'
+      })
+      .to(detailImageWrapper, {
+        opacity: 0,
+        duration: 0.3,
+        ease: 'power2.inOut'
+      }, '-=0.2');
+  }
+
+  // Add click handlers to all artwork images
+  document.querySelectorAll('.item-img').forEach(img => {
+    img.addEventListener('click', function() {
+      const item = this.closest('.item');
+      openArtworkDetail(item);
+    });
+    
+    // Keyboard accessibility
+    img.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const item = this.closest('.item');
+        openArtworkDetail(item);
+      }
+    });
+  });
+
+  // Close button handler
+  artworkDetailClose.addEventListener('click', closeArtworkDetail);
+  
+  // Click outside to close
+  artworkDetail.addEventListener('click', function(e) {
+    if (e.target === artworkDetail) {
+      closeArtworkDetail();
+    }
+  });
+
+  // ESC key to close
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && artworkDetail.classList.contains('active')) {
+      closeArtworkDetail();
+    }
+  });
+
+  // ============================================
+  // LIGHTBOX (kept for backward compatibility)
   // ============================================
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
@@ -94,23 +269,6 @@ window.addEventListener("DOMContentLoaded", function () {
     lightbox.classList.remove('active');
     document.body.style.overflow = '';
   }
-
-  // Add click handlers to all artwork images
-  document.querySelectorAll('.item-img').forEach(img => {
-    img.addEventListener('click', function() {
-      const item = this.closest('.item');
-      openLightbox(item);
-    });
-    
-    // Keyboard accessibility
-    img.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        const item = this.closest('.item');
-        openLightbox(item);
-      }
-    });
-  });
 
   lightboxClose.addEventListener('click', closeLightbox);
   lightbox.addEventListener('click', function(e) {
