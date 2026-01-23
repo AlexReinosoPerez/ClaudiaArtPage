@@ -180,11 +180,6 @@ window.addEventListener("DOMContentLoaded", function () {
     btn.addEventListener('click', function() {
       document.querySelectorAll('.about-section, .exhibitions-section, .commissions-section, .contact-section').forEach(section => {
         section.classList.remove('active');
-        // Clear GSAP inline styles from contact section
-        if (section.id === 'contact') {
-          gsap.set(section, { clearProps: "all" });
-          gsap.set(section.querySelectorAll('.title-wrapper, .contact-item'), { clearProps: "all" });
-        }
       });
       document.body.style.overflow = 'auto';
     });
@@ -197,11 +192,6 @@ window.addEventListener("DOMContentLoaded", function () {
       if (anyOverlayActive) {
         document.querySelectorAll('.about-section, .exhibitions-section, .commissions-section, .contact-section').forEach(section => {
           section.classList.remove('active');
-          // Clear GSAP inline styles from contact section
-          if (section.id === 'contact') {
-            gsap.set(section, { clearProps: "all" });
-            gsap.set(section.querySelectorAll('.title-wrapper, .contact-item'), { clearProps: "all" });
-          }
         });
         document.body.style.overflow = 'auto';
       }

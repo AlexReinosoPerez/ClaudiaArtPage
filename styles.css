@@ -1622,6 +1622,14 @@ section {
     padding: 0.3em 0.5em;
   }
   
+  /* Mobile: Fix overlay close button position */
+  .overlay-close {
+    top: 1rem;
+    right: 1rem;
+    width: 35px;
+    height: 35px;
+  }
+  
   .hero-title .letter {
     font-size: 18vw;
   }
