@@ -230,14 +230,6 @@ window.initGallery3D = function() {
       }
     }
   }
-  
-  // Initialize first slide as active on load
-  setTimeout(() => {
-    const firstSlide = document.getElementById('slide-0');
-    if (firstSlide) {
-      firstSlide.classList.add('active');
-    }
-  }, 100);
 
   function animate() {
     requestAnimationFrame(animate);
@@ -261,6 +253,9 @@ window.initGallery3D = function() {
     updateUI(currentScroll);
     renderer.render(scene, camera);
   }
+  
+  // Initialize first slide as active immediately
+  updateUI(0);
 
   window.addEventListener('resize', () => {
     camera.aspect = container.clientWidth / container.clientHeight;
