@@ -1591,35 +1591,40 @@ section {
 
 @media (max-width: 600px) {
   nav {
-    padding: 0.8em 1em;
+    padding: 1em 1.2em;
     flex-wrap: wrap;
     z-index: 10000;
   }
 
   nav .logo a {
-    font-size: 13px;
+    font-size: 15px;
   }
 
   nav .nav-items {
     display: flex;
-    gap: 1em;
-    font-size: 9px;
+    gap: 1.2em;
+    font-size: 12px;
     flex-wrap: wrap;
   }
 
   nav .nav-items a {
-    font-size: 9px;
-    padding: 0.3em 0;
+    font-size: 12px;
+    padding: 0.5em 0.3em;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
   }
   
   .lang-switcher {
     margin-left: auto;
-    gap: 0.2em;
+    gap: 0.4em;
   }
 
   .lang-btn {
-    font-size: 9px;
-    padding: 0.3em 0.5em;
+    font-size: 11px;
+    padding: 0.5em 0.7em;
+    min-height: 44px;
+    min-width: 44px;
   }
   
   /* Mobile: Fix overlay close button position - lower for non-contact sections */
