@@ -1604,26 +1604,55 @@ section {
   }
   
   .slide-content {
+    bottom: 5%;
     left: 3%;
     right: 3%;
+    top: auto;
+    transform: none;
+    width: auto;
+    max-width: none;
+    background: rgba(196, 196, 176, 0.98);
+    padding: 1.2rem;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   }
   
   .slide-title {
-    font-size: 2rem;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
   }
   
   .slide-description {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     text-align: left;
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
+  }
+
+  .catalogue-number {
+    font-size: 0.6rem;
+    margin-bottom: 1rem;
   }
   
   .meta-grid {
     grid-template-columns: 60px 1fr;
+    row-gap: 0.6rem;
+    padding-top: 1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .meta-label {
+    font-size: 0.6rem;
+  }
+
+  .meta-value {
+    font-size: 0.95rem;
   }
   
   .view-detail-btn {
-    font-size: 12px;
-    padding: 0.8em 2em;
+    font-size: 11px;
+    padding: 0.8em 1.8em;
   }
   
   .artwork-detail-title {
@@ -1642,9 +1671,15 @@ section {
   /* Mobile: Touch instructions for carousel */
   .canvas-container::after {
     content: 'Swipe left/right to navigate';
-    bottom: 80px;
-    font-size: 0.7rem;
-    opacity: 0.5;
+    bottom: auto;
+    top: 120px;
+    font-size: 0.65rem;
+    opacity: 0.6;
+  }
+
+  /* Mobile: Hide next section button on small screens */
+  .next-section-btn {
+    display: none;
   }
 
   /* Mobile: Scroll button positioning */
