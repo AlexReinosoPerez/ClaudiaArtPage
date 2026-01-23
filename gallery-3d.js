@@ -117,6 +117,24 @@ window.initGallery3D = function() {
     document.body.style.overflow = ''; // Restore page scroll
   });
   
+  // Auto-activate gallery on mobile/touch devices
+  if ('ontouchstart' in window) {
+    // Check if works section is in view
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          isGalleryFocused = true;
+          document.body.style.overflow = 'hidden';
+        } else {
+          isGalleryFocused = false;
+          document.body.style.overflow = '';
+        }
+      });
+    }, { threshold: 0.5 });
+    
+    observer.observe(worksSection);
+  }
+  
   // Only capture scroll when gallery is focused
   window.addEventListener('wheel', (e) => {
     if (isGalleryFocused) {
