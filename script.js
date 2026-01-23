@@ -1,5 +1,4 @@
 window.addEventListener("DOMContentLoaded", function () {
-  console.log('=== SCRIPT LOADED ===');
   // Register ScrollTrigger plugin
   gsap.registerPlugin(ScrollTrigger);
 
@@ -66,13 +65,10 @@ window.addEventListener("DOMContentLoaded", function () {
       const targetId = this.getAttribute('href').substring(1);
       const target = document.querySelector(`#${targetId}`);
       
-      console.log('Navigation clicked:', targetId, 'target found:', target);
-      
       if (!target) return;
       
       // If it's an overlay section, show it as overlay
       if (overlaySections.includes(targetId)) {
-        console.log('Opening overlay:', targetId);
         // Hide all overlays first
         document.querySelectorAll('.about-section, .exhibitions-section, .commissions-section, .contact-section').forEach(section => {
           section.classList.remove('active');
@@ -207,41 +203,42 @@ window.addEventListener("DOMContentLoaded", function () {
   // SCROLL TO TOP BUTTON
   // ============================================
   const scrollToTopBtn = document.querySelector('.scroll-to-top');
-  console.log('=== SCROLL BUTTON CHECK ===');
-  console.log('Scroll button found:', scrollToTopBtn);
   
   if (scrollToTopBtn) {
     window.addEventListener('scroll', () => {
-      // Show button when scrolled down past hero section
-      if (window.scrollY > window.innerHeight * 0.5) {
+      // Show button when scrolled down past 300px
+      if (window.scrollY > 300) {
         scrollToTopBtn.classList.add('visible');
-        console.log('Button should be visible now');
       } else {
         scrollToTopBtn.classList.remove('visible');
       }
     });
-  } else {
-    console.error('SCROLL BUTTON NOT FOUND IN DOM!');
   }
 
   if (scrollToTopBtn) {
-    scrollToTopBtn.addEventListener('click', () => {
-      console.log('Scroll button clicked');
-      console.log('Current scrollY:', window.scrollY);
+    scrollToTopBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       
       // Close any open overlays first
       document.querySelectorAll('.about-section, .exhibitions-section, .commissions-section, .contact-section').forEach(section => {
         section.classList.remove('active');
       });
-      document.body.style.overflow = '';
       
-      // Scroll to top
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
+      // Re-enable body scroll
+      document.body.style.overflow = 'auto';
       
-      console.log('Scroll command sent');
+      // Force scroll to top immediately
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      
+      // Also try smooth scroll as backup
+      setTimeout(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }, 10);
     });
   }
 
