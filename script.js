@@ -209,9 +209,6 @@ window.addEventListener("DOMContentLoaded", function () {
   console.log('Scroll button found:', scrollToTopBtn);
   
   if (scrollToTopBtn) {
-    // Make it visible by default for testing
-    scrollToTopBtn.classList.add('visible');
-    
     window.addEventListener('scroll', () => {
       // Show button when scrolled down past hero section
       if (window.scrollY > window.innerHeight * 0.5) {
