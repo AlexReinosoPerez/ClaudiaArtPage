@@ -104,28 +104,96 @@ window.initGallery3D = function() {
   }
 
   const worksSection = document.querySelector('.works-section');
-  worksSection.addEventListener('wheel', (e) => {
-    e.preventDefault();
-    targetScroll += e.deltaY * 0.1;
-    if(snapTimer) clearTimeout(snapTimer);
-    snapTimer = setTimeout(snapToNearest, CONFIG.snapDelay);
+  let isGalleryFocused = false;
+  
+  // Gallery gets focus when clicked or when hovering over canvas
+  container.addEventListener('mouseenter', () => {
+    isGalleryFocused = true;
+    worksSection.style.cursor = 'grab';
+  });
+  
+  container.addEventListener('mouseleave', () => {
+    isGalleryFocused = false;
+    worksSection.style.cursor = 'default';
+  });
+  
+  // Also focus when clicking anywhere in the works section
+  worksSection.addEventListener('click', (e) => {
+    if (e.target.closest('.canvas-container')) {
+      isGalleryFocused = true;
+    }
+  });
+  
+  // Only capture scroll when gallery is focused
+  window.addEventListener('wheel', (e) => {
+    if (isGalleryFocused) {
+      e.preventDefault();
+      targetScroll += e.deltaY * 0.1 + e.deltaX * 0.1;
+      if(snapTimer) clearTimeout(snapTimer);
+      snapTimer = setTimeout(snapToNearest, CONFIG.snapDelay);
+    }
   }, { passive: false });
+  
+  // Keyboard navigation
+  window.addEventListener('keydown', (e) => {
+    if (isGalleryFocused) {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        targetScroll -= CONFIG.spacingX;
+        snapToNearest();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        targetScroll += CONFIG.spacingX;
+        snapToNearest();
+      }
+    }
+  });
 
   let touchStart = 0;
+  let touchStartY = 0;
+  let isTouchScrolling = false;
+  
   worksSection.addEventListener('touchstart', e => {
     touchStart = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    isTouchScrolling = false;
     if(snapTimer) clearTimeout(snapTimer);
   });
   
   worksSection.addEventListener('touchmove', e => {
-    const diff = touchStart - e.touches[0].clientX;
-    targetScroll += diff * 0.6;
-    touchStart = e.touches[0].clientX;
+    const touchCurrentX = e.touches[0].clientX;
+    const touchCurrentY = e.touches[0].clientY;
+    const diffX = Math.abs(touchStart - touchCurrentX);
+    const diffY = Math.abs(touchStartY - touchCurrentY);
+    
+    // Determine if this is a horizontal or vertical swipe
+    if (!isTouchScrolling) {
+      isTouchScrolling = true;
+      // If horizontal swipe is dominant, use gallery navigation
+      if (diffX > diffY && diffX > 10) {
+        e.preventDefault(); // Prevent page scroll for horizontal swipe
+        const diff = touchStart - touchCurrentX;
+        targetScroll += diff * 0.6;
+        touchStart = touchCurrentX;
+      }
+      // If vertical swipe, allow normal scroll (don't preventDefault)
+    } else if (diffX > diffY) {
+      // Continue horizontal navigation
+      e.preventDefault();
+      const diff = touchStart - touchCurrentX;
+      targetScroll += diff * 0.6;
+      touchStart = touchCurrentX;
+    }
+    // Otherwise let the vertical scroll happen naturally
+    
     if(snapTimer) clearTimeout(snapTimer);
-  });
+  }, { passive: false });
 
   worksSection.addEventListener('touchend', () => {
-    snapToNearest();
+    if (isTouchScrolling) {
+      snapToNearest();
+    }
+    isTouchScrolling = false;
   });
 
   window.addEventListener('mousemove', (e) => {

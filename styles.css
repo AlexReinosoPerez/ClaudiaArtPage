@@ -226,6 +226,32 @@ section {
   width: 100%;
   height: 100%;
   z-index: 1;
+  cursor: default;
+  transition: opacity 0.3s ease;
+}
+
+.canvas-container:hover {
+  opacity: 1;
+}
+
+.canvas-container::after {
+  content: 'Click or hover to navigate • Use arrows ← →';
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.canvas-container:hover::after {
+  opacity: 1;
 }
 
 .gallery-ui {
@@ -338,6 +364,13 @@ section {
   letter-spacing: 2px;
   color: #aaa;
   z-index: 10;
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  .canvas-container::after {
+    content: 'Swipe to navigate';
+  }
 }
 
 .letter {
@@ -617,6 +650,24 @@ section {
   }
 
   /* Gallery 3D mobile */
+  .works-section {
+    touch-action: pan-y; /* Allow vertical scroll by default */
+  }
+  
+  .canvas-container {
+    touch-action: pan-y;
+  }
+  
+  .canvas-container::after {
+    content: 'Swipe horizontally to navigate';
+    bottom: 100px;
+    font-size: 0.6rem;
+  }
+  
+  .canvas-container:active::after {
+    opacity: 1;
+  }
+  
   .slide-content {
     top: auto;
     bottom: 10%;
@@ -624,6 +675,9 @@ section {
     right: 5%;
     width: auto;
     max-width: none;
+    background: rgba(196, 196, 176, 0.95);
+    padding: 1.5rem;
+    border-radius: 4px;
   }
   
   .slide-title {
