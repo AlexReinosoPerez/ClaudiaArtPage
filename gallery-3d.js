@@ -91,7 +91,7 @@ window.initGallery3D = function() {
   }
 
   galleryGroup.rotation.y = CONFIG.wallAngleY;
-  galleryGroup.position.x = 15;
+  galleryGroup.position.x = 3;
 
   let currentScroll = 0;
   let targetScroll = 0;
