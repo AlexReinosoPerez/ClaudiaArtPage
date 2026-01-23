@@ -200,6 +200,27 @@ window.addEventListener("DOMContentLoaded", function () {
   }
 
   // ============================================
+  // SCROLL TO TOP BUTTON
+  // ============================================
+  const scrollToTopBtn = document.querySelector('.scroll-to-top');
+  
+  window.addEventListener('scroll', () => {
+    // Show button when scrolled down past hero section
+    if (window.scrollY > window.innerHeight * 0.5) {
+      scrollToTopBtn.classList.add('visible');
+    } else {
+      scrollToTopBtn.classList.remove('visible');
+    }
+  });
+
+  scrollToTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+
+  // ============================================
   // FEATURED ARTWORK DETAIL VIEW
   // ============================================
   const artworkDetail = document.getElementById('artwork-detail');
