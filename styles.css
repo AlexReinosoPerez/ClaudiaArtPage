@@ -1606,8 +1606,8 @@ section {
 
   nav .nav-items {
     display: flex;
-    gap: 0.8em;
-    font-size: 12px;
+    gap: 0.6em;
+    font-size: 10px;
     flex-wrap: nowrap;
     overflow-x: auto;
     flex: 1;
@@ -1616,8 +1616,8 @@ section {
   }
 
   nav .nav-items a {
-    font-size: 12px;
-    padding: 0.5em 0.3em;
+    font-size: 10px;
+    padding: 0.4em 0.2em;
     min-height: 44px;
     display: flex;
     align-items: center;
