@@ -117,20 +117,26 @@ window.initGallery3D = function() {
     document.body.style.overflow = ''; // Restore page scroll
   });
   
-  // Auto-activate gallery on mobile/touch devices
+  // Auto-activate gallery on mobile/touch devices when fully scrolled into view
   if ('ontouchstart' in window) {
-    // Check if works section is in view
+    let scrollTimeout;
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          isGalleryFocused = true;
-          document.body.style.overflow = 'hidden';
-        } else {
+        // Clear any existing timeout
+        if (scrollTimeout) clearTimeout(scrollTimeout);
+        
+        if (entry.isIntersecting && entry.intersectionRatio > 0.8) {
+          // Wait a bit to ensure scroll has fully completed
+          scrollTimeout = setTimeout(() => {
+            isGalleryFocused = true;
+            document.body.style.overflow = 'hidden';
+          }, 500);
+        } else if (!entry.isIntersecting) {
           isGalleryFocused = false;
           document.body.style.overflow = '';
         }
       });
-    }, { threshold: 0.5 });
+    }, { threshold: [0, 0.5, 0.8, 1] });
     
     observer.observe(worksSection);
   }
