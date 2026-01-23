@@ -53,19 +53,44 @@ window.addEventListener("DOMContentLoaded", function () {
   });
 
   // ============================================
-  // SMOOTH SCROLL
+  // SMOOTH SCROLL & OVERLAY NAVIGATION
   // ============================================
+  
+  // Sections that should be overlays (not scrollable)
+  const overlaySections = ['about', 'exhibitions', 'commissions', 'contact'];
+  
   document.querySelectorAll('nav a[href^="#"], .next-section-btn[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
       e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
+      const targetId = this.getAttribute('href').substring(1);
+      const target = document.querySelector(`#${targetId}`);
+      
+      if (!target) return;
+      
+      // If it's an overlay section, show it as overlay
+      if (overlaySections.includes(targetId)) {
+        // Hide all overlays first
+        document.querySelectorAll('.about-section, .exhibitions-section, .commissions-section, .contact-section').forEach(section => {
+          section.classList.remove('active');
+        });
+        // Show the target overlay
+        target.classList.add('active');
+        // Disable body scroll when overlay is open
+        document.body.style.overflow = 'hidden';
+        
+        // Force ScrollTrigger refresh for overlay content
+        setTimeout(() => {
+          ScrollTrigger.refresh();
+          window.scrollBy(0, 1);
+          setTimeout(() => window.scrollBy(0, -1), 50);
+        }, 300);
+      } else {
+        // Normal scroll for hero and works sections
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         
         // Force ScrollTrigger refresh after smooth scroll completes
         setTimeout(() => {
           ScrollTrigger.refresh();
-          // Trigger a small scroll to activate any pending animations
           window.scrollBy(0, 1);
           setTimeout(() => window.scrollBy(0, -1), 50);
         }, 800);
@@ -77,19 +102,76 @@ window.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll('.cta-button[href^="#"]').forEach(btn => {
     btn.addEventListener('click', function (e) {
       e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
+      const targetId = this.getAttribute('href').substring(1);
+      const target = document.querySelector(`#${targetId}`);
+      
+      if (!target) return;
+      
+      // If it's an overlay section, show it as overlay
+      if (overlaySections.includes(targetId)) {
+        // Hide all overlays first
+        document.querySelectorAll('.about-section, .exhibitions-section, .commissions-section, .contact-section').forEach(section => {
+          section.classList.remove('active');
+        });
+        // Show the target overlay
+        target.classList.add('active');
+        // Disable body scroll when overlay is open
+        document.body.style.overflow = 'hidden';
+        
+        // Force ScrollTrigger refresh for overlay content
+        setTimeout(() => {
+          ScrollTrigger.refresh();
+          window.scrollBy(0, 1);
+          setTimeout(() => window.scrollBy(0, -1), 50);
+        }, 300);
+      } else {
+        // Normal scroll for hero and works sections
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         
         // Force ScrollTrigger refresh after smooth scroll completes
         setTimeout(() => {
           ScrollTrigger.refresh();
-          // Trigger a small scroll to activate any pending animations
           window.scrollBy(0, 1);
           setTimeout(() => window.scrollBy(0, -1), 50);
         }, 800);
       }
     });
+  });
+  
+  // Close overlay when clicking on logo
+  document.querySelector('nav .logo a').addEventListener('click', function(e) {
+    e.preventDefault();
+    // Hide all overlays
+    document.querySelectorAll('.about-section, .exhibitions-section, .commissions-section, .contact-section').forEach(section => {
+      section.classList.remove('active');
+    });
+    // Re-enable body scroll
+    document.body.style.overflow = 'auto';
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  
+  // Close button handlers
+  document.querySelectorAll('.overlay-close').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.about-section, .exhibitions-section, .commissions-section, .contact-section').forEach(section => {
+        section.classList.remove('active');
+      });
+      document.body.style.overflow = 'auto';
+    });
+  });
+  
+  // Close overlay with ESC key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      const anyOverlayActive = document.querySelector('.about-section.active, .exhibitions-section.active, .commissions-section.active, .contact-section.active');
+      if (anyOverlayActive) {
+        document.querySelectorAll('.about-section, .exhibitions-section, .commissions-section, .contact-section').forEach(section => {
+          section.classList.remove('active');
+        });
+        document.body.style.overflow = 'auto';
+      }
+    }
   });
 
   // ============================================
