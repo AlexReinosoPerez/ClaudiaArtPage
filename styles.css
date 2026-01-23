@@ -50,8 +50,6 @@ main {
   pointer-events: auto;
   transition: opacity 0.5s ease, visibility 0s, z-index 0s;
 }
-  transition: opacity 0.5s ease, visibility 0s, z-index 0s;
-}
 
 /* Close button for overlays */
 .overlay-close {
