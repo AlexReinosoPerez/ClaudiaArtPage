@@ -1349,8 +1349,8 @@ section {
 .close-line {
   position: absolute;
   width: 30px;
-  height: 1px;
-  background: rgba(0, 0, 0, 0.7);
+  height: 2px;
+  background: rgba(0, 0, 0, 0.9);
   transition: background 0.3s ease;
 }
 
