@@ -1595,7 +1595,7 @@ section {
     flex-wrap: wrap;
     z-index: 10000;
     gap: 0.8em;
-    align-items: flex-start;
+    align-items: center;
   }
 
   nav .logo a {
