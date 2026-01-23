@@ -1593,6 +1593,7 @@ section {
   nav {
     padding: 0.8em 1em;
     flex-wrap: wrap;
+    z-index: 10000;
   }
 
   nav .logo a {
