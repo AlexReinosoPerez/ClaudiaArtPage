@@ -209,18 +209,13 @@ window.addEventListener("DOMContentLoaded", function () {
   const scrollToTopBtn = document.querySelector('.scroll-to-top');
   console.log('=== SCROLL BUTTON CHECK ===');
   console.log('Scroll button found:', scrollToTopBtn);
-  console.log('Button HTML:', scrollToTopBtn ? scrollToTopBtn.outerHTML : 'NOT FOUND');
   
   if (scrollToTopBtn) {
-    // Force visible for testing
-    scrollToTopBtn.style.backgroundColor = 'red';
-    scrollToTopBtn.style.opacity = '1';
-    scrollToTopBtn.style.visibility = 'visible';
-    
     window.addEventListener('scroll', () => {
       // Show button when scrolled down past hero section
       if (window.scrollY > window.innerHeight * 0.5) {
         scrollToTopBtn.classList.add('visible');
+        console.log('Button should be visible now');
       } else {
         scrollToTopBtn.classList.remove('visible');
       }

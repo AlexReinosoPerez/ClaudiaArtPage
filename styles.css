@@ -35,7 +35,7 @@ main {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.5s ease, visibility 0s 0.5s, z-index 0s 0.5s;
+  transition: opacity 0.5s ease, visibility 0s 0.5s, z-index 0s;
   overflow: hidden;
   background: rgb(196, 196, 176);
 }
@@ -44,10 +44,12 @@ main {
 .exhibitions-section.active,
 .commissions-section.active,
 .contact-section.active {
-  z-index: 2000;
+  z-index: 5000;
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
+  transition: opacity 0.5s ease, visibility 0s, z-index 0s;
+}
   transition: opacity 0.5s ease, visibility 0s, z-index 0s;
 }
 
@@ -155,7 +157,7 @@ nav .logo a {
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  z-index: 999;
+  z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -163,11 +165,13 @@ nav .logo a {
   opacity: 0;
   visibility: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  pointer-events: auto;
 }
 
 .scroll-to-top.visible {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
 }
 
 .scroll-to-top:hover {
