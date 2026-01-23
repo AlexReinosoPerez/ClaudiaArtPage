@@ -67,7 +67,7 @@ main {
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  z-index: 3002;
+  z-index: 10001;
   padding: 0;
   align-items: center;
   justify-content: center;
