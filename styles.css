@@ -1,29 +1,141 @@
-/* ============================================
-   CLAUDIA ART PAGE - OPTIMIZED STYLES
-   ============================================ */
-
-/* ============================================
-   BASE RESET & TYPOGRAPHY
-   ============================================ */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   width: 100%;
   height: 100%;
   overflow-x: hidden;
+  overflow-y: auto;
   scroll-behavior: smooth;
   font-family: "PP Neue Montreal", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background-color: rgb(196, 196, 176);
 }
 
 main {
-  height: 180vh;
+  height: 180vh; /* Hero (80vh) + Gallery (100vh) */
   max-height: 180vh;
   overflow: hidden;
+}
+
+/* Page sections - Full page layouts with navigation */
+.about-section,
+.exhibitions-section,
+.commissions-section,
+.contact-section {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.5s ease, visibility 0s 0.5s, z-index 0s;
+  overflow: auto;
+  background: rgb(196, 196, 176);
+}
+
+.about-section.active,
+.exhibitions-section.active,
+.commissions-section.active,
+.contact-section.active {
+  z-index: 10000 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  transition: opacity 0.5s ease, visibility 0s, z-index 0s !important;
+  transform: none !important;
+  translate: none !important;
+  rotate: none !important;
+  scale: none !important;
+}
+
+/* Close button for overlays (unified styling) */
+.overlay-close,
+.artwork-detail-close {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  background: rgba(0, 0, 0, 0.3);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10001;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  pointer-events: auto;
+}
+
+/* Hide overlay-close by default, show only when section is active */
+.overlay-close {
+  display: none;
+}
+
+/* Always show artwork-detail-close */
+.artwork-detail-close {
+  display: flex;
+}
+
+.overlay-close::before,
+.overlay-close::after,
+.close-line {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 2px;
+  background: #fff;
+  transition: background 0.3s ease;
+}
+
+.overlay-close::before {
+  transform: rotate(45deg);
+}
+
+.overlay-close::after {
+  transform: rotate(-45deg);
+}
+
+.close-line:first-child {
+  transform: rotate(45deg);
+}
+
+.close-line:last-child {
+  transform: rotate(-45deg);
+}
+
+.overlay-close:hover,
+.artwork-detail-close:hover {
+  background: rgba(0, 0, 0, 0.6);
+  transform: rotate(90deg);
+}
+
+.about-section.active .overlay-close,
+.exhibitions-section.active .overlay-close,
+.commissions-section.active .overlay-close,
+.contact-section.active .overlay-close {
+  display: flex;
+}
+
+/* Prevent horizontal scroll from parallax */
+.container {
+  width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding-top: 60px;
+}
+
+/* Smooth section transitions */
+section {
+  will-change: opacity, transform;
 }
 
 img {
@@ -39,24 +151,6 @@ a {
   font-weight: 500;
 }
 
-button {
-  font-family: inherit;
-}
-
-.container {
-  width: 100vw;
-  min-height: 100vh;
-  overflow-x: hidden;
-  padding-top: 60px;
-}
-
-section {
-  will-change: opacity, transform;
-}
-
-/* ============================================
-   NAVIGATION
-   ============================================ */
 nav {
   position: fixed;
   top: 0;
@@ -76,36 +170,7 @@ nav .logo a {
   letter-spacing: 0.05em;
 }
 
-.nav-items {
-  display: flex;
-  gap: 2em;
-  flex: 1;
-}
-
-.lang-switcher {
-  display: flex;
-  gap: 0.5em;
-  align-items: center;
-}
-
-.lang-btn {
-  background: none;
-  border: none;
-  font-size: 13.5px;
-  font-weight: 500;
-  cursor: pointer;
-  opacity: 0.5;
-  transition: opacity 0.3s ease;
-}
-
-.lang-btn.active {
-  opacity: 1;
-  font-weight: 600;
-}
-
-/* ============================================
-   SCROLL TO TOP BUTTON
-   ============================================ */
+/* Scroll to top button */
 .scroll-to-top {
   position: fixed;
   top: 50%;
@@ -113,8 +178,8 @@ nav .logo a {
   transform: translateY(-50%);
   width: 50px;
   height: 50px;
-  background: #000;
-  border: 2px solid #fff;
+  background: #000000;
+  border: 2px solid #ffffff;
   border-radius: 50%;
   cursor: pointer;
   z-index: 1000;
@@ -123,324 +188,1146 @@ nav .logo a {
   justify-content: center;
   transition: all 0.3s ease;
   opacity: 1;
+  visibility: visible;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  pointer-events: auto;
 }
 
-.scroll-to-top svg {
-  color: #fff;
+.scroll-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .scroll-to-top:hover {
+  background: #333333;
   transform: translateY(-50%) scale(1.1);
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.7);
 }
 
-/* ============================================
-   OVERLAY SECTIONS (About, Exhibitions, etc)
-   ============================================ */
-.about-section,
-.exhibitions-section,
-.commissions-section,
-.contact-section {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  z-index: -1;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity 0.5s ease, visibility 0s 0.5s;
-  overflow: auto;
-  background: rgb(196, 196, 176);
+.scroll-to-top svg {
+  width: 24px;
+  height: 24px;
+  stroke: #ffffff;
+  fill: none;
 }
 
-.about-section.active,
-.exhibitions-section.active,
-.commissions-section.active,
-.contact-section.active {
-  z-index: 10000 !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
-  transition: opacity 0.5s ease;
+nav .nav-items {
+  display: flex;
+  gap: 2.5em;
+  margin-left: auto;
 }
 
-/* ============================================
-   CLOSE BUTTONS (Unified)
-   ============================================ */
-.overlay-close,
-.artwork-detail-close {
-  position: fixed;
-  top: 2rem;
-  right: 2rem;
-  width: 50px;
-  height: 50px;
-  background: rgba(0, 0, 0, 0.3);
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: 10001;
-  padding: 0;
+.lang-switcher {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
+  gap: 0.5em;
 }
 
-.overlay-close {
-  display: none;
+.lang-btn {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  color: #000;
+  opacity: 0.4;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  padding: 0;
 }
 
-.artwork-detail-close {
-  display: flex;
+.lang-btn.active {
+  opacity: 1;
 }
 
-.about-section.active .overlay-close,
-.exhibitions-section.active .overlay-close,
-.commissions-section.active .overlay-close,
-.contact-section.active .overlay-close {
-  display: flex;
+.lang-btn:hover {
+  opacity: 0.7;
 }
 
-.overlay-close::before,
-.overlay-close::after,
-.close-line {
-  content: '';
-  position: absolute;
-  width: 20px;
-  height: 2px;
-  background: #fff;
+.lang-switcher span {
+  font-size: 12px;
+  opacity: 0.4;
 }
 
-.overlay-close::before,
-.close-line:first-child {
-  transform: rotate(45deg);
+.container {
+  width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding-top: 60px;
 }
 
-.overlay-close::after,
-.close-line:last-child {
-  transform: rotate(-45deg);
-}
-
-.overlay-close:hover,
-.artwork-detail-close:hover {
-  background: rgba(0, 0, 0, 0.6);
-  transform: rotate(90deg);
-}
-
-/* ============================================
-   HERO SECTION
-   ============================================ */
+/* Hero cinematic zoom container */
 .hero {
+  position: relative;
   min-height: 80vh;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 4rem 2rem 2rem;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+  gap: 1.5rem;
+  padding: 6rem 2rem 3rem;
+  transform-origin: center center;
+  will-change: transform;
 }
 
 .hero-title {
-  font-size: clamp(12vw, 20vw, 180px);
-  font-family: "Playfair Display", Georgia, serif;
-  font-weight: 400;
-  font-style: italic;
-  line-height: 0.9;
-  margin-bottom: 2rem;
-  will-change: transform;
+  display: flex;
+  justify-content: center;
 }
 
 .hero-title-part {
   display: flex;
-  gap: 0.5rem;
-  justify-content: center;
-}
-
-.letter {
-  display: inline-block;
-  overflow: hidden;
-}
-
-.letter-wrapper {
-  display: inline-block;
-  transform: translateY(100%);
 }
 
 .hero-subtitle {
+  text-align: center;
   overflow: hidden;
-  margin-bottom: 2rem;
 }
 
-.subtitle-wrapper {
-  transform: translateY(100%);
-}
-
-.hero-subtitle h1 {
-  font-size: 1rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
+.subtitle-wrapper h1 {
+  font-size: 1.5rem;
+  font-weight: 300;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
 }
 
 .hero-description {
+  text-align: center;
   max-width: 600px;
-  margin-bottom: 3rem;
+  margin-top: 1rem;
+  overflow: hidden;
 }
 
 .description-line {
-  font-size: 1.1rem;
+  font-size: 1rem;
+  font-weight: 300;
   line-height: 1.6;
-  opacity: 0;
+  opacity: 0.8;
 }
 
-.hero-cta {
-  opacity: 0;
-}
+  .hero-cta {
+    margin-top: 2.5rem;
+  }
 
-.cta-button {
-  padding: 1rem 2.5rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  background: #000;
-  color: #fff;
-  border: 2px solid #000;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
+  .cta-button {
+    display: inline-block;
+    padding: 1.2em 3em;
+    background: #000;
+    color: #fff;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    transition: all 0.4s ease;
+    border-radius: 0;
+    border: 2px solid #000;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
 
-.cta-button:hover {
-  background: transparent;
-  color: #000;
-}
+  .cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    transition: left 0.5s ease;
+    z-index: -1;
+  }
 
-/* ============================================
-   WORKS SECTION - 3D CAROUSEL
-   ============================================ */
-.works-section {
-  min-height: 100vh;
-  padding: 4rem 2rem;
-  position: relative;
-  opacity: 1;
+  .cta-button:hover::before {
+    left: 100%;
+  }
+
+  .cta-button:hover {
+    background: #000;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .cta-button.primary {
+    padding: 1.3em 3.5em;
+    font-size: 16px;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+    }
+  }/* Sections */
+section {
+  min-height: auto;
+  padding: 6rem 2rem;
+  will-change: opacity, transform;
 }
 
 .section-title {
+  font-size: 2rem;
+  font-weight: 300;
   text-align: center;
-  font-size: 3rem;
-  font-family: "Playfair Display", Georgia, serif;
-  font-weight: 400;
-  font-style: italic;
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
   overflow: hidden;
 }
 
 .title-wrapper {
   display: inline-block;
+  will-change: transform, opacity;
 }
 
-.scroll-hint {
-  text-align: center;
-  font-size: 0.9rem;
-  opacity: 0.6;
-  margin-bottom: 2rem;
+/* Works Section - 3D Infinite Carousel */
+.works-section {
+  position: relative;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: rgb(196, 196, 176);
+}
+
+.works-section .section-title {
+  position: absolute;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  margin: 0;
+  font-size: 1.5rem;
 }
 
 .canvas-container {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 70vh;
-  min-height: 500px;
-  position: relative;
+  height: 100%;
+  z-index: 1;
+  cursor: default;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.canvas-container:hover {
   opacity: 1;
 }
 
-.gallery-ui {
+.canvas-container::after {
+  content: 'Hover to activate • Use scroll or arrows ← →';
   position: absolute;
-  bottom: 2rem;
-  left: 2rem;
-  right: 2rem;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition: opacity 0.3s ease;
   pointer-events: none;
+  white-space: nowrap;
+}
+
+.canvas-container:hover::after {
+  opacity: 1;
+}
+
+.next-section-btn {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border-radius: 50%;
+  z-index: 100;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  cursor: pointer;
+  animation: bounce 2s infinite;
+}
+
+.next-section-btn:hover {
+  background: rgba(0, 0, 0, 0.9);
+  transform: translateX(-50%) translateY(-5px);
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  40% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+  60% {
+    transform: translateX(-50%) translateY(-5px);
+  }
+}
+
+.gallery-ui {
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+  flex: 1;
+  display: flex;
+  align-items: center;
 }
 
 .slide-content {
+  position: absolute;
+  top: 50%;
+  left: 8%;
+  transform: translateY(-50%);
+  width: 30%;
+  max-width: 450px;
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-  max-width: 500px;
+  transition: opacity 0.8s ease, transform 0.8s ease-out;
   pointer-events: auto;
 }
 
 .slide-content.active {
   opacity: 1;
-  transform: translateY(0);
 }
 
 .catalogue-number {
-  font-size: 0.85rem;
-  letter-spacing: 0.1em;
+  font-size: 0.7rem;
   text-transform: uppercase;
-  opacity: 0.7;
-  display: block;
-  margin-bottom: 0.5rem;
+  letter-spacing: 3px;
+  color: #999;
+  margin-bottom: 1.5rem;
+  display: inline-block;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
 }
 
 .slide-title {
-  font-size: 2.5rem;
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: 'Playfair Display', Georgia, serif;
   font-weight: 400;
   font-style: italic;
-  margin-bottom: 1rem;
+  font-size: 3.5rem;
+  margin: 0 0 1.5rem 0;
+  line-height: 1;
+  color: #0d0d0d;
 }
 
 .slide-description {
-  font-size: 1rem;
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-  opacity: 0.8;
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: #444;
+  margin-bottom: 2rem;
+  text-align: justify;
 }
 
 .meta-grid {
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 0.5rem 1.5rem;
-  font-size: 0.9rem;
-  margin-bottom: 1.5rem;
+  grid-template-columns: 80px 1fr;
+  row-gap: 0.8rem;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .meta-label {
-  font-weight: 600;
-  opacity: 0.7;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #888;
+  align-self: center;
 }
 
 .meta-value {
-  opacity: 0.9;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #222;
 }
 
 .view-detail-btn {
-  padding: 0.8rem 2rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  background: #000;
+  display: inline-block;
+  padding: 0.9em 2.2em;
+  background: rgba(0, 0, 0, 0.85);
   color: #fff;
-  border: 2px solid #000;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  transition: all 0.4s ease;
+  border-radius: 2px;
+  border: none;
   cursor: pointer;
-  transition: all 0.3s ease;
+  font-family: inherit;
 }
 
 .view-detail-btn:hover {
+  background: rgba(0, 0, 0, 1);
+  transform: translateY(-2px);
+}
+
+.scroll-hint {
+  position: absolute;
+  top: 120px;
+  left: 50px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #aaa;
+  z-index: 10;
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  .canvas-container::after {
+    content: 'Swipe to navigate';
+  }
+  
+  .scroll-hint {
+    top: 80px;
+    left: 20px;
+    font-size: 0.6rem;
+  }
+  
+  .next-section-btn {
+    bottom: 20px;
+    width: 45px;
+    height: 45px;
+  }
+}
+
+.letter {
+  font-size: 12vw;
+  font-weight: 300;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.letter-wrapper {
+  position: relative;
+}
+
+/* About Section - Asymmetric layout with large image */
+.about-section {
+  background: rgb(196, 196, 176);
+  height: 100vh;
+  padding-top: 60px;
+  overflow: hidden;
+}
+
+.about-content {
+  display: grid;
+  grid-template-columns: 45% 55%;
+  height: calc(100vh - 60px);
+  gap: 0;
+}
+
+.about-text-content {
+  padding: 4rem 4rem 4rem 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(240, 240, 230, 0.15));
+  position: relative;
+}
+
+.about-text-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.3), transparent 50%);
+  pointer-events: none;
+}
+
+.about-text-content h2 {
+  font-size: 4rem;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 400;
+  font-style: italic;
+  margin-bottom: 2rem;
+  color: #1a1a1a;
+  position: relative;
+}
+
+.about-text {
+  position: relative;
+}
+
+.about-text p {
+  font-size: 1.15rem;
+  line-height: 1.85;
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+  color: #333;
+}
+
+.about-text p:first-child {
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin-bottom: 2rem;
+}
+
+.about-image {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  position: relative;
+}
+
+.about-image::before {
+  content: 'Artist Portrait';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  opacity: 0.15;
+  font-weight: 500;
+  z-index: 1;
+}
+
+.about-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about-section .section-title {
+  display: none;
+}
+
+/* Exhibitions Section - Interactive gallery layout */
+.exhibitions-section {
+  background: #f5f5f0;
+  height: 100vh;
+  padding-top: 60px;
+  overflow: hidden;
+}
+
+.exhibitions-wrapper {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  height: calc(100vh - 60px);
+  gap: 0;
+}
+
+.exhibitions-list-container {
+  padding: 3rem 2rem 3rem 5%;
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.exhibitions-list-container h2 {
+  font-size: 3rem;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 400;
+  font-style: italic;
+  margin-bottom: 2.5rem;
+  color: #1a1a1a;
+}
+
+.exhibitions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.exhibition-item {
+  padding: 1.5rem 1.5rem 1.5rem 1rem;
+  background: rgba(255, 255, 255, 0.4);
+  border-left: 3px solid transparent;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.exhibition-item:hover {
+  background: rgba(255, 255, 255, 0.6);
+  border-left-color: rgba(26, 26, 26, 0.5);
+}
+
+.exhibition-item.active {
+  background: rgba(255, 255, 255, 0.85);
+  border-left-color: #1a1a1a;
+  border-left-width: 4px;
+}
+
+.exhibition-item.active .exhibition-name {
+  color: #000;
+  font-weight: 600;
+}
+
+.exhibition-name {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  color: #1a1a1a;
+}
+
+.exhibition-location {
+  font-size: 0.95rem;
+  font-weight: 400;
+  opacity: 0.7;
+  margin-bottom: 0.3rem;
+  color: #333;
+}
+
+.exhibition-year {
+  font-size: 0.8rem;
+  font-weight: 500;
+  opacity: 0.5;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #666;
+}
+
+.exhibition-preview {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.exhibition-preview-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.exhibition-preview-image.active {
+  opacity: 1;
+}
+
+.exhibition-preview-image img {
+  width: 100%;
+  height: 70%;
+  object-fit: cover;
+}
+
+.exhibition-preview-info {
+  padding: 2rem 3rem;
+  background: rgba(255, 255, 255, 0.95);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.exhibition-preview-info h3 {
+  font-size: 1.8rem;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  margin-bottom: 1rem;
+  color: #1a1a1a;
+}
+
+.exhibition-preview-info p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #444;
+  font-weight: 300;
+}
+
+.exhibition-preview::before {
+  content: 'Select an exhibition';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  opacity: 0.15;
+  font-weight: 500;
+  z-index: 0;
+}
+
+.exhibitions-section .section-title {
+  display: none;
+}
+
+/* Commissions Section - Split layout with large image */
+.commissions-section {
+  background: rgb(196, 196, 176);
+  height: 100vh;
+  padding-top: 60px;
+  overflow: hidden;
+}
+
+.commissions-section .section-title {
+  display: none;
+}
+
+.commissions-wrapper {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  width: 100%;
+  height: calc(100vh - 60px);
+}
+
+.commissions-content {
+  padding: 6rem 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(240, 240, 230, 0.3));
+}
+
+.commissions-content h2 {
+  font-size: 3.5rem;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 400;
+  font-style: italic;
+  margin-bottom: 2rem;
+  color: #1a1a1a;
+}
+
+.commissions-text {
+  margin-bottom: 3rem;
+}
+
+.commissions-text p {
+  font-size: 1.15rem;
+  line-height: 1.9;
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+  color: #333;
+}
+
+.commissions-cta {
+  margin-top: 2rem;
+}
+
+.commissions-cta .cta-button {
+  background: #000;
+  color: #fff;
+  border: 2px solid #000;
+  font-size: 16px;
+  padding: 1.4em 3.5em;
+}
+
+.commissions-cta .cta-button:hover {
   background: transparent;
+  color: #000;
+  border-color: #000;
+}
+
+.commissions-image {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.commissions-image::before {
+  content: 'Commission Work';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  opacity: 0.2;
+  font-weight: 500;
+  z-index: 1;
+}
+
+.commissions-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Contact Section - Centered dynamic layout */
+.contact-section {
+  background: linear-gradient(135deg, rgb(196, 196, 176) 0%, rgba(220, 220, 200, 1) 100%);
+  height: 100vh;
+  padding-top: 60px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.contact-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.3), transparent 60%);
+  pointer-events: none;
+}
+
+.contact-section .section-title {
+  position: absolute;
+  top: 5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 3rem;
+}
+
+.contact-content {
+  text-align: center;
+  max-width: 700px;
+  position: relative;
+  z-index: 1;
+}
+
+.contact-intro {
+  font-size: 1.35rem;
+  line-height: 1.9;
+  margin-bottom: 4rem;
+  font-weight: 300;
+  color: #333;
+}
+
+.contact-methods {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.contact-item {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 3rem 2rem;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.contact-item::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background: rgba(0, 0, 0, 0.03);
+  transition: height 0.4s ease;
+}
+
+.contact-item:hover {
+  background: rgba(255, 255, 255, 0.7);
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+.contact-item:hover::before {
+  height: 100%;
+}
+
+.contact-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 600;
+  opacity: 0.5;
   color: #000;
 }
 
+.contact-link {
+  font-size: 1.6rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  color: #000;
+  position: relative;
+  display: inline-block;
+  word-break: break-all;
+  line-height: 1.4;
+}
+
+.contact-link:hover {
+  transform: scale(1.05);
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(196, 196, 176, 0.98);
+  backdrop-filter: blur(20px);
+  z-index: 9000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+
+.lightbox.active {
+  display: flex;
+  opacity: 1;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 2rem;
+  font-weight: 300;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+  z-index: 9001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+}
+
+.lightbox-close:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.9);
+  transform: rotate(90deg);
+}
+
+.lightbox-content {
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  cursor: default;
+}
+
+#lightbox-img {
+  max-width: 90vw;
+  max-height: 75vh;
+  object-fit: contain;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.lightbox-info {
+  text-align: center;
+  max-width: 600px;
+}
+
+.lightbox-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 400;
+  font-style: italic;
+  margin-bottom: 0.5rem;
+  color: #0d0d0d;
+}
+
+.lightbox-details {
+  font-size: 0.9rem;
+  font-weight: 300;
+  opacity: 0.7;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 900px) {
+  nav {
+    padding: 1em;
+  }
+  
+  nav .logo a {
+    font-size: 14px;
+  }
+  
+  nav .nav-items {
+    gap: 1.5em;
+  }
+  
+  nav .nav-items a {
+    font-size: 11px;
+  }
+  
+  .lang-switcher {
+    gap: 0.3em;
+  }
+  
+  .lang-btn {
+    font-size: 10px;
+  }
+  
+  .hero {
+    gap: 1rem;
+  }
+  
+  .hero-title .letter {
+    font-size: 15vw;
+  }
+  
+  .hero-subtitle h1 {
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+  }
+  
+  .hero-description {
+    padding: 0 1.5rem;
+  }
+  
+  .description-line {
+    font-size: 0.9rem;
+  }
+  
+  .cta-button {
+    font-size: 12px;
+    padding: 0.9em 2em;
+  }
+  
+  .cta-button.primary {
+    font-size: 13px;
+    padding: 1em 2.5em;
+  }
+
+  /* Gallery 3D mobile */
+  .works-section {
+    touch-action: pan-y; /* Allow vertical scroll by default */
+  }
+  
+  .canvas-container {
+    touch-action: pan-y;
+  }
+  
+  .canvas-container::after {
+    content: 'Swipe horizontally to navigate';
+    bottom: 100px;
+    font-size: 0.6rem;
+  }
+  
+  .canvas-container:active::after {
+    opacity: 1;
+  }
+  
+  .slide-content {
+    top: auto;
+    bottom: 10%;
+    left: 5%;
+    right: 5%;
+    width: auto;
+    max-width: none;
+    background: rgba(196, 196, 176, 0.95);
+    padding: 1.5rem;
+    border-radius: 4px;
+  }
+  
+  .slide-title {
+    font-size: 2.5rem;
+  }
+  
+  .slide-description {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .meta-grid {
+    grid-template-columns: 70px 1fr;
+    row-gap: 0.6rem;
+  }
+  
+  .scroll-hint {
+    bottom: 20px;
+    left: 20px;
+    font-size: 0.6rem;
+  }
+  
+  section {
+    padding: 4rem 1.5rem;
+    min-height: auto;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .about-text p {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  
+  .commissions-text p {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  
+  .exhibitions-list {
+    gap: 2rem;
+  }
+  
+  .exhibition-name {
+    font-size: 1.1rem;
+  }
+  
+  .contact-link {
+    font-size: 1.1rem;
+  }
+  
+  .lightbox-close {
+    top: 1rem;
+    right: 1rem;
+    font-size: 2.5rem;
+  }
+  
+  #lightbox-img {
+    max-height: 60vh;
+  }
+}
+
 /* ============================================
-   ARTWORK DETAIL MODAL
+   FEATURED ARTWORK DETAIL VIEW
+   Inspired by high-end editorial galleries
+   Asymmetric, image-dominant, contemplative
    ============================================ */
+
 .artwork-detail {
   position: fixed;
   top: 0;
@@ -495,6 +1382,7 @@ nav .logo a {
 }
 
 .artwork-detail-caption {
+  position: relative;
   padding: 2rem 0;
 }
 
@@ -512,397 +1400,101 @@ nav .logo a {
   line-height: 1.1;
   margin: 0 0 1rem 0;
   color: #0d0d0d;
+  will-change: transform, opacity;
 }
 
 .artwork-detail-info {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.2rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  padding-top: 1.5rem;
 }
 
 .artwork-detail-info-item {
-  display: flex;
+  display: grid;
+  grid-template-columns: 100px 1fr;
   gap: 1rem;
-  font-size: 1.1rem;
+  align-items: baseline;
 }
 
 .info-label {
-  font-weight: 600;
-  min-width: 120px;
-  opacity: 0.7;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #888;
+  font-weight: 500;
 }
 
 .info-value {
-  opacity: 0.9;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.15rem;
+  font-style: italic;
+  color: #222;
+  font-weight: 400;
 }
 
 .artwork-detail-description {
-  font-size: 1.15rem;
-  line-height: 1.8;
-  color: #2d2d2d;
-  opacity: 0.85;
-}
-
-/* ============================================
-   ABOUT SECTION
-   ============================================ */
-.about-section {
-  padding-top: 60px;
-}
-
-.about-content {
-  display: grid;
-  grid-template-columns: 45% 55%;
-  height: calc(100vh - 60px);
-}
-
-.about-text-content {
-  padding: 4rem 4rem 4rem 5%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(240, 240, 230, 0.15));
-}
-
-.about-text-content h2 {
-  font-size: 4rem;
-  font-family: "Playfair Display", Georgia, serif;
-  font-weight: 400;
-  font-style: italic;
-  margin-bottom: 2rem;
-  line-height: 1.1;
-}
-
-.about-text p {
-  font-size: 1.15rem;
-  line-height: 1.8;
-  margin-bottom: 1.5rem;
-  color: #2d2d2d;
-}
-
-.about-text p:first-child {
-  font-size: 1.4rem;
-  font-weight: 500;
-  color: #0d0d0d;
-}
-
-.about-image {
-  background: linear-gradient(45deg, #d4d4c4 0%, #e8e8da 100%);
-}
-
-/* ============================================
-   EXHIBITIONS SECTION
-   ============================================ */
-.exhibitions-section {
-  padding: 4rem 0;
-}
-
-.exhibitions-wrapper {
-  display: grid;
-  grid-template-columns: 35% 65%;
-  height: calc(100vh - 8rem);
-}
-
-.exhibitions-list-container {
-  padding: 3rem 2rem 2rem 4rem;
-  overflow-y: auto;
-}
-
-.exhibitions-list-container h2 {
-  font-size: 3rem;
-  font-family: "Playfair Display", Georgia, serif;
-  font-weight: 400;
-  font-style: italic;
-  margin-bottom: 2rem;
-}
-
-.exhibitions-list {
-  list-style: none;
-}
-
-.exhibition-item {
-  padding: 1.5rem 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.exhibition-item:hover,
-.exhibition-item.active {
-  padding-left: 1rem;
-  background: rgba(255, 255, 255, 0.3);
-}
-
-.exhibition-title {
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-.exhibition-meta {
-  display: flex;
-  gap: 1.5rem;
-  font-size: 0.9rem;
-  opacity: 0.7;
-}
-
-.exhibition-preview {
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(135deg, #c8c8b8 0%, #dcdcce 100%);
-}
-
-.exhibition-preview-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-.exhibition-preview-image.active {
-  opacity: 1;
-}
-
-/* ============================================
-   COMMISSIONS SECTION
-   ============================================ */
-.commissions-section {
-  padding: 6rem 4rem;
-}
-
-.commissions-content {
-  max-width: 1400px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6rem;
-  align-items: center;
-}
-
-.commissions-text h2 {
-  font-size: 4rem;
-  font-family: "Playfair Display", Georgia, serif;
-  font-weight: 400;
-  font-style: italic;
-  margin-bottom: 2rem;
-  line-height: 1.1;
-}
-
-.commissions-text p {
-  font-size: 1.15rem;
-  line-height: 1.8;
-  margin-bottom: 1.5rem;
-  color: #2d2d2d;
-}
-
-.commissions-text p:first-of-type {
-  font-size: 1.3rem;
-  font-weight: 500;
-  color: #0d0d0d;
-}
-
-.commission-process {
-  list-style: none;
-  margin: 2rem 0;
-}
-
-.commission-process li {
-  padding: 1rem 0;
   font-size: 1.05rem;
-  display: flex;
-  gap: 1rem;
-}
-
-.commission-process li::before {
-  content: '→';
-  font-weight: bold;
-}
-
-.commissions-image {
-  height: 500px;
-  background: linear-gradient(45deg, #d4d4c4 0%, #e8e8da 100%);
-}
-
-/* ============================================
-   CONTACT SECTION
-   ============================================ */
-.contact-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 4rem 2rem;
-  text-align: center;
-}
-
-.contact-section .section-title {
-  font-size: 4rem;
-  margin-bottom: 2rem;
-}
-
-.contact-intro {
-  max-width: 600px;
-  font-size: 1.15rem;
   line-height: 1.8;
-  margin-bottom: 3rem;
-  color: #2d2d2d;
+  color: #444;
+  font-weight: 300;
+  margin: 0;
+  text-align: justify;
+  will-change: transform, opacity;
 }
 
-.contact-methods {
-  display: flex;
-  gap: 4rem;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.contact-item {
-  text-align: center;
-}
-
-.contact-label {
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  opacity: 0.7;
-  margin-bottom: 0.5rem;
-}
-
-.contact-link {
-  font-size: 1.2rem;
-  font-weight: 600;
-  transition: opacity 0.3s ease;
-}
-
-.contact-link:hover {
-  opacity: 0.6;
-}
-
-/* ============================================
-   LIGHTBOX (Legacy)
-   ============================================ */
-.lightbox {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.95);
-  z-index: 9999;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.lightbox.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.lightbox-content {
-  max-width: 90%;
-  max-height: 90%;
-  position: relative;
-}
-
-.lightbox-image {
-  max-width: 100%;
-  max-height: 90vh;
-  object-fit: contain;
-}
-
-.lightbox-close {
-  position: absolute;
-  top: -3rem;
-  right: 0;
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 2rem;
-  cursor: pointer;
-  padding: 0.5rem;
-}
-
-.lightbox-title {
-  position: absolute;
-  bottom: -3rem;
-  left: 0;
-  color: #fff;
-  font-size: 1.2rem;
-  font-style: italic;
-}
-
-/* ============================================
-   RESPONSIVE - TABLET (max-width: 900px)
-   ============================================ */
-@media (max-width: 900px) {
-  /* Navigation */
-  nav {
-    padding: 1.2em 1.5em;
+/* Responsive behavior */
+@media (max-width: 1200px) {
+  .artwork-detail-figure {
+    grid-template-columns: 1.2fr 1fr;
+    gap: 3rem;
   }
   
-  .nav-items {
-    gap: 1.5em;
+  .artwork-detail-title {
+    font-size: 3.5rem;
   }
-
-  /* Hero */
-  .hero {
-    padding: 3rem 1.5rem 2rem;
+  
+  .info-value {
+    font-size: 1.05rem;
   }
+}
 
-  .hero-title {
-    font-size: 18vw;
-  }
-
-  .hero-subtitle h1 {
-    font-size: 0.85rem;
-  }
-
-  .description-line {
-    font-size: 0.95rem;
-  }
-
-  /* Works */
-  .canvas-container {
-    height: 60vh;
-    min-height: 400px;
-  }
-
-  .gallery-ui {
-    bottom: 1rem;
-    left: 1rem;
-    right: 1rem;
-  }
-
-  .slide-title {
-    font-size: 2rem;
-  }
-
-  .slide-description {
-    font-size: 0.9rem;
-  }
-
-  /* Artwork Detail */
+@media (max-width: 900px) {
   .artwork-detail-figure {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 2.5rem;
   }
-
+  
+  .artwork-detail-content {
+    padding: 5rem 1.5rem 3rem;
+  }
+  
   .artwork-detail-title {
     font-size: 3rem;
   }
-
+  
   .artwork-detail-description {
     font-size: 1rem;
+    line-height: 1.7;
+  }
+  
+  /* Unified close button mobile sizing */
+  .overlay-close,
+  .artwork-detail-close {
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 44px;
+    height: 44px;
+  }
+  
+  .overlay-close::before,
+  .overlay-close::after,
+  .close-line {
+    width: 18px;
   }
 
-  /* About */
+  /* About page responsive */
   .about-content {
     grid-template-columns: 1fr;
   }
@@ -919,7 +1511,15 @@ nav .logo a {
     min-height: 50vh;
   }
 
-  /* Exhibitions */
+  .about-text p {
+    font-size: 1.05rem;
+  }
+
+  .about-text p:first-child {
+    font-size: 1.2rem;
+  }
+
+  /* Exhibitions page responsive */
   .exhibitions-wrapper {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
@@ -932,289 +1532,296 @@ nav .logo a {
 
   .exhibitions-list-container h2 {
     font-size: 2rem;
+    margin-bottom: 1.5rem;
   }
 
-  /* Commissions */
-  .commissions-content {
+  .exhibition-preview {
+    min-height: 60vh;
+  }
+
+  .exhibition-preview-info {
+    padding: 1.5rem;
+  }
+
+  /* Commissions page responsive */
+  .commissions-wrapper {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    grid-template-rows: auto 1fr;
   }
 
-  .commissions-text h2 {
-    font-size: 3rem;
+  .commissions-content {
+    padding: 3rem 2rem;
+  }
+
+  .commissions-content h2 {
+    font-size: 2.5rem;
+  }
+
+  .commissions-text p {
+    font-size: 1rem;
   }
 
   .commissions-image {
-    height: 400px;
+    min-height: 50vh;
   }
 
-  /* Contact */
-  .contact-section .section-title {
-    font-size: 3rem;
-  }
-
+  /* Contact page responsive */
   .contact-methods {
-    gap: 2rem;
+    grid-template-columns: 1fr;
+  }
+
+  .contact-intro {
+    font-size: 1.15rem;
   }
 }
 
-/* ============================================
-   RESPONSIVE - MOBILE (max-width: 600px)
-   ============================================ */
 @media (max-width: 600px) {
-  /* Navigation - Two-line mobile layout */
   nav {
     padding: 1em 1.2em;
     flex-wrap: wrap;
     z-index: 10000;
     gap: 0.8em;
+    align-items: center;
   }
 
   nav .logo a {
     font-size: 15px;
+    white-space: nowrap;
     order: 1;
   }
 
-  .nav-items {
+  nav .nav-items {
     display: flex;
     gap: 0.6em;
-    flex: 1;
-    justify-content: flex-end;
-    order: 2;
     font-size: 10px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    flex: 1;
+    order: 2;
+    min-width: 0;
+    justify-content: flex-end;
   }
 
-  .nav-items a {
+  nav .nav-items a {
     font-size: 10px;
-    padding: 0.5em 0.8em;
+    padding: 0.4em 0.2em;
     min-height: 44px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    white-space: nowrap;
   }
-
+  
   .lang-switcher {
+    margin-left: auto;
+    gap: 0.4em;
+    flex-shrink: 0;
     order: 3;
+    align-self: flex-end;
     width: 100%;
     justify-content: flex-end;
-    font-size: 10px;
   }
 
   .lang-btn {
-    font-size: 10px;
+    font-size: 11px;
+    padding: 0.5em 0.7em;
+    min-height: 44px;
+    min-width: 44px;
   }
-
-  /* Close buttons */
-  .overlay-close,
-  .artwork-detail-close {
-    top: 1.5rem;
-    right: 1.5rem;
-    width: 44px;
-    height: 44px;
-  }
-
-  .overlay-close::before,
-  .overlay-close::after,
-  .close-line {
-    width: 18px;
-  }
-
+  
+  /* Mobile: Lower position for non-contact overlay close buttons */
   .overlay-close-lower {
     top: 4.5rem;
   }
-
+  
+  /* Mobile: Keep contact close button at top */
   .contact-section .overlay-close {
     top: 1.5rem;
   }
-
-  /* Scroll to top */
-  .scroll-to-top {
-    left: 1rem;
-    width: 44px;
-    height: 44px;
   }
-
-  /* Hero */
-  .hero {
-    min-height: 70vh;
-    padding: 2rem 1rem;
-  }
-
-  .hero-title {
+  
+  .hero-title .letter {
     font-size: 18vw;
   }
-
+  
   .hero-subtitle h1 {
     font-size: 0.9rem;
+    letter-spacing: 0.15em;
   }
-
+  
   .description-line {
     font-size: 0.85rem;
   }
-
-  /* Works */
-  .section-title {
-    font-size: 2.5rem;
+  
+  section {
+    padding: 2.5rem 1rem 2rem;
   }
-
-  .canvas-container {
-    height: 50vh;
-    min-height: 350px;
-  }
-
-  .gallery-ui {
-    position: static;
-    margin-top: 1rem;
-  }
-
-  .slide-content {
-    opacity: 1;
-    transform: none;
-  }
-
-  .slide-title {
-    font-size: 1.8rem;
-  }
-
-  .slide-description {
-    font-size: 0.85rem;
-  }
-
-  .meta-grid {
-    font-size: 0.8rem;
-  }
-
-  /* Artwork Detail */
-  .artwork-detail-content {
-    padding: 5rem 1rem 3rem;
-  }
-
-  .artwork-detail-title {
-    font-size: 2.5rem;
-  }
-
-  /* About */
-  .about-text-content h2 {
-    font-size: 2rem;
-  }
-
-  .about-text p {
+  
+  .about-text p,
+  .commissions-text p {
     font-size: 0.95rem;
   }
-
-  .about-text p:first-child {
-    font-size: 1.2rem;
-  }
-
-  /* Exhibitions - Vertical mobile layout */
+  
+  /* Mobile: Exhibitions vertical layout */
   .exhibitions-wrapper {
     grid-template-columns: 1fr;
     height: auto;
     min-height: 100vh;
   }
-
+  
   .exhibitions-list-container {
-    padding: 3rem 1.5rem 1.5rem;
-    max-height: none;
-    height: auto;
+    padding: 2rem 1.5rem;
+    background: rgba(255, 255, 255, 0.5);
+    overflow-y: visible;
   }
-
+  
   .exhibitions-list-container h2 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
   }
-
+  
   .exhibition-item {
-    padding: 1rem 0;
-    cursor: default;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
   }
-
-  .exhibition-title {
-    font-size: 1.1rem;
-  }
-
-  .exhibition-meta {
-    font-size: 0.8rem;
-  }
-
-  .exhibition-mobile-preview {
-    display: none;
-    margin-top: 1rem;
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 4px;
-  }
-
-  .exhibition-item.active .exhibition-mobile-preview {
-    display: block;
-  }
-
+  
+  /* Mobile: Hide desktop preview panel */
   .exhibition-preview {
     display: none;
   }
-
-  /* Commissions */
-  .commissions-section {
-    padding: 4rem 1.5rem;
+  
+  /* Mobile: Add preview container inside each item */
+  .exhibition-item .exhibition-mobile-preview {
+    display: none;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .exhibition-item.active .exhibition-mobile-preview {
+    display: block;
+  }
+  
+  .exhibition-mobile-preview .exhibition-preview-info {
+    background: rgba(255, 255, 255, 0.6);
+    padding: 1rem;
+    border-radius: 8px;
+  }
+  
+  .exhibition-mobile-preview .exhibition-preview-info h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic;
+  }
+  
+  .exhibition-mobile-preview .exhibition-preview-info p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    opacity: 0.8;
+  }
+  
+  .slide-content {
+    bottom: 5%;
+    left: 3%;
+    right: 3%;
+    top: auto;
+    transform: none;
+    width: auto;
+    max-width: none;
+    background: rgba(196, 196, 176, 0.98);
+    padding: 1.2rem;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    position: fixed;
+    z-index: 100;
   }
 
-  .commissions-text h2 {
-    font-size: 2rem;
+  .slide-content.active {
+    opacity: 1 !important;
+  }
+  
+  .slide-title {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+  
+  .slide-description {
+    font-size: 0.85rem;
+    text-align: left;
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
   }
 
-  .commissions-text p {
+  .catalogue-number {
+    font-size: 0.6rem;
+    margin-bottom: 1rem;
+  }
+  
+  .meta-grid {
+    grid-template-columns: 60px 1fr;
+    row-gap: 0.6rem;
+    padding-top: 1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .meta-label {
+    font-size: 0.6rem;
+  }
+
+  .meta-value {
     font-size: 0.95rem;
   }
-
-  .commissions-text p:first-of-type {
-    font-size: 1.1rem;
+  
+  .view-detail-btn {
+    font-size: 11px;
+    padding: 0.8em 1.8em;
   }
-
-  .commission-process li {
-    font-size: 0.9rem;
-  }
-
-  .commissions-image {
-    height: 300px;
-  }
-
-  /* Contact */
-  .contact-section .section-title {
+  
+  .artwork-detail-title {
     font-size: 2.5rem;
+  }
+  
+  .artwork-detail-info-item {
+    grid-template-columns: 80px 1fr;
+  }
+  
+  .artwork-detail-description {
+    font-size: 0.95rem;
+    text-align: left;
+  }
+
+  /* Mobile: Touch instructions for carousel - hidden (scroll-hint already shows instructions) */
+  .canvas-container::after {
+    display: none;
+  }
+
+  /* Mobile: Hide next section button on small screens */
+  .next-section-btn {
+    display: none;
+  }
+
+  /* Mobile: Scroll button positioning */
+  .scroll-to-top {
+    left: 1rem;
+    width: 45px;
+    height: 45px;
+  }
+
+  /* Mobile: Contact section */
+  .contact-methods {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
   .contact-intro {
-    font-size: 1rem;
-  }
-
-  .contact-methods {
-    flex-direction: column;
-    gap: 2rem;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 3rem;
   }
 
   .contact-link {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    word-break: break-word;
   }
-}
-
-/* ============================================
-   ACCESSIBILITY
-   ============================================ */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
-/* Focus styles for keyboard navigation */
-a:focus,
-button:focus {
-  outline: 2px solid #000;
-  outline-offset: 2px;
 }
