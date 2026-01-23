@@ -1,4 +1,5 @@
 window.addEventListener("DOMContentLoaded", function () {
+  console.log('=== SCRIPT LOADED ===');
   // Register ScrollTrigger plugin
   gsap.registerPlugin(ScrollTrigger);
 
@@ -206,9 +207,16 @@ window.addEventListener("DOMContentLoaded", function () {
   // SCROLL TO TOP BUTTON
   // ============================================
   const scrollToTopBtn = document.querySelector('.scroll-to-top');
+  console.log('=== SCROLL BUTTON CHECK ===');
   console.log('Scroll button found:', scrollToTopBtn);
+  console.log('Button HTML:', scrollToTopBtn ? scrollToTopBtn.outerHTML : 'NOT FOUND');
   
   if (scrollToTopBtn) {
+    // Force visible for testing
+    scrollToTopBtn.style.backgroundColor = 'red';
+    scrollToTopBtn.style.opacity = '1';
+    scrollToTopBtn.style.visibility = 'visible';
+    
     window.addEventListener('scroll', () => {
       // Show button when scrolled down past hero section
       if (window.scrollY > window.innerHeight * 0.5) {
@@ -217,6 +225,8 @@ window.addEventListener("DOMContentLoaded", function () {
         scrollToTopBtn.classList.remove('visible');
       }
     });
+  } else {
+    console.error('SCROLL BUTTON NOT FOUND IN DOM!');
   }
 
   if (scrollToTopBtn) {
