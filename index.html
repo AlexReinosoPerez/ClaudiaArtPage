@@ -150,18 +150,16 @@
       <section id="about" class="about-section">
         <button class="overlay-close" aria-label="Close"></button>
         <div class="about-content">
-          <h2 class="section-title">
-            <span class="title-wrapper" data-en="About" data-es="Acerca">About</span>
-          </h2>
-          <div class="about-image">
-            <!-- Image will be added here -->
-          </div>
           <div class="about-text-content">
+            <h2 data-en="About" data-es="Acerca">About</h2>
             <div class="about-text">
               <p data-en="Claudia is a painter whose figurative works explore themes of human connection, nature, and femininity with sensitivity and depth." data-es="Claudia es una pintora cuyas obras figurativas exploran temas de conexión humana, naturaleza y feminidad con sensibilidad y profundidad.">Claudia is a painter whose figurative works explore themes of human connection, nature, and femininity with sensitivity and depth.</p>
               <p data-en="Her practice is rooted in careful observation and a contemplative approach to color, texture, and form." data-es="Su práctica se basa en la observación cuidadosa y un enfoque contemplativo del color, la textura y la forma.">Her practice is rooted in careful observation and a contemplative approach to color, texture, and form.</p>
               <p data-en="Each piece is created with intention, inviting viewers into a space of reflection." data-es="Cada pieza se crea con intención, invitando a los espectadores a un espacio de reflexión.">Each piece is created with intention, inviting viewers into a space of reflection.</p>
             </div>
+          </div>
+          <div class="about-image">
+            <!-- Image will be added here -->
           </div>
         </div>
       </section>
@@ -169,24 +167,49 @@
       <!-- Exhibitions Section -->
       <section id="exhibitions" class="exhibitions-section">
         <button class="overlay-close" aria-label="Close"></button>
-        <h2 class="section-title">
-          <span class="title-wrapper" data-en="Exhibitions" data-es="Exposiciones">Exhibitions</span>
-        </h2>
-        <div class="exhibitions-list">
-          <div class="exhibition-item">
-            <p class="exhibition-name" data-en="Essence & Form" data-es="Esencia y Forma">Essence & Form</p>
-            <p class="exhibition-location" data-en="Galería Arte Contemporáneo, Madrid" data-es="Galería Arte Contemporáneo, Madrid">Galería Arte Contemporáneo, Madrid</p>
-            <p class="exhibition-year">2024</p>
+        <div class="exhibitions-wrapper">
+          <div class="exhibitions-list-container">
+            <h2 data-en="Exhibitions" data-es="Exposiciones">Exhibitions</h2>
+            <div class="exhibitions-list">
+              <div class="exhibition-item active" data-exhibition="0">
+                <p class="exhibition-name" data-en="Essence & Form" data-es="Esencia y Forma">Essence & Form</p>
+                <p class="exhibition-location" data-en="Galería Arte Contemporáneo, Madrid" data-es="Galería Arte Contemporáneo, Madrid">Galería Arte Contemporáneo, Madrid</p>
+                <p class="exhibition-year">2024</p>
+              </div>
+              <div class="exhibition-item" data-exhibition="1">
+                <p class="exhibition-name" data-en="Feminine Landscapes" data-es="Paisajes Femeninos">Feminine Landscapes</p>
+                <p class="exhibition-location" data-en="Espacio Cultural, Barcelona" data-es="Espacio Cultural, Barcelona">Espacio Cultural, Barcelona</p>
+                <p class="exhibition-year">2023</p>
+              </div>
+              <div class="exhibition-item" data-exhibition="2">
+                <p class="exhibition-name" data-en="Collective: New Voices" data-es="Colectiva: Nuevas Voces">Collective: New Voices</p>
+                <p class="exhibition-location" data-en="Fundación Arte Vivo, Sevilla" data-es="Fundación Arte Vivo, Sevilla">Fundación Arte Vivo, Sevilla</p>
+                <p class="exhibition-year">2023</p>
+              </div>
+            </div>
           </div>
-          <div class="exhibition-item">
-            <p class="exhibition-name" data-en="Feminine Landscapes" data-es="Paisajes Femeninos">Feminine Landscapes</p>
-            <p class="exhibition-location" data-en="Espacio Cultural, Barcelona" data-es="Espacio Cultural, Barcelona">Espacio Cultural, Barcelona</p>
-            <p class="exhibition-year">2023</p>
-          </div>
-          <div class="exhibition-item">
-            <p class="exhibition-name" data-en="Collective: New Voices" data-es="Colectiva: Nuevas Voces">Collective: New Voices</p>
-            <p class="exhibition-location" data-en="Fundación Arte Vivo, Sevilla" data-es="Fundación Arte Vivo, Sevilla">Fundación Arte Vivo, Sevilla</p>
-            <p class="exhibition-year">2023</p>
+          <div class="exhibition-preview">
+            <div class="exhibition-preview-image active" data-preview="0">
+              <div style="width:100%;height:70%;background:rgba(0,0,0,0.05);"></div>
+              <div class="exhibition-preview-info">
+                <h3 data-en="Essence & Form" data-es="Esencia y Forma">Essence & Form</h3>
+                <p data-en="A solo exhibition exploring the relationship between inner essence and outer form through 18 figurative works. The show examined how we present ourselves to the world." data-es="Una exposición individual explorando la relación entre la esencia interior y la forma exterior a través de 18 obras figurativas. La muestra examinó cómo nos presentamos al mundo.">A solo exhibition exploring the relationship between inner essence and outer form through 18 figurative works. The show examined how we present ourselves to the world.</p>
+              </div>
+            </div>
+            <div class="exhibition-preview-image" data-preview="1">
+              <div style="width:100%;height:70%;background:rgba(0,0,0,0.05);"></div>
+              <div class="exhibition-preview-info">
+                <h3 data-en="Feminine Landscapes" data-es="Paisajes Femeninos">Feminine Landscapes</h3>
+                <p data-en="A thematic exhibition connecting the female form with natural landscapes. 12 oil paintings created over 18 months, exploring themes of growth, change, and resilience." data-es="Una exposición temática conectando la forma femenina con paisajes naturales. 12 pinturas al óleo creadas durante 18 meses, explorando temas de crecimiento, cambio y resiliencia.">A thematic exhibition connecting the female form with natural landscapes. 12 oil paintings created over 18 months, exploring themes of growth, change, and resilience.</p>
+              </div>
+            </div>
+            <div class="exhibition-preview-image" data-preview="2">
+              <div style="width:100%;height:70%;background:rgba(0,0,0,0.05);"></div>
+              <div class="exhibition-preview-info">
+                <h3 data-en="New Voices" data-es="Nuevas Voces">New Voices</h3>
+                <p data-en="A collective exhibition showcasing emerging talent in contemporary art. Claudia presented 6 pieces exploring themes of connection, solitude, and feminine identity." data-es="Una exposición colectiva mostrando talento emergente en arte contemporáneo. Claudia presentó 6 piezas explorando temas de conexión, soledad e identidad femenina.">A collective exhibition showcasing emerging talent in contemporary art. Claudia presented 6 pieces exploring themes of connection, solitude, and feminine identity.</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

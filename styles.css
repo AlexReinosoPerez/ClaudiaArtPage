@@ -36,7 +36,7 @@ main {
   visibility: hidden;
   pointer-events: none;
   transition: opacity 0.5s ease, visibility 0s 0.5s, z-index 0s 0.5s;
-  overflow-y: auto;
+  overflow: hidden;
   background: rgb(196, 196, 176);
 }
 
@@ -551,29 +551,74 @@ section {
   position: relative;
 }
 
-/* About Section - Editorial layout with image */
+/* About Section - Asymmetric layout with large image */
 .about-section {
   background: rgb(196, 196, 176);
-  min-height: 100vh;
-  padding-top: 80px;
+  height: 100vh;
+  padding-top: 60px;
+  overflow: hidden;
 }
 
 .about-content {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 4rem 2rem;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6rem;
-  align-items: center;
-  min-height: calc(100vh - 80px);
+  grid-template-columns: 45% 55%;
+  height: calc(100vh - 60px);
+  gap: 0;
+}
+
+.about-text-content {
+  padding: 4rem 4rem 4rem 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(240, 240, 230, 0.15));
+  position: relative;
+}
+
+.about-text-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.3), transparent 50%);
+  pointer-events: none;
+}
+
+.about-text-content h2 {
+  font-size: 4rem;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 400;
+  font-style: italic;
+  margin-bottom: 2rem;
+  color: #1a1a1a;
+  position: relative;
+}
+
+.about-text {
+  position: relative;
+}
+
+.about-text p {
+  font-size: 1.15rem;
+  line-height: 1.85;
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+  color: #333;
+}
+
+.about-text p:first-child {
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin-bottom: 2rem;
 }
 
 .about-image {
   width: 100%;
-  height: 600px;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 2px;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.08);
   overflow: hidden;
   position: relative;
 }
@@ -587,8 +632,9 @@ section {
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 3px;
-  opacity: 0.3;
+  opacity: 0.15;
   font-weight: 500;
+  z-index: 1;
 }
 
 .about-image img {
@@ -597,120 +643,169 @@ section {
   object-fit: cover;
 }
 
-.about-text-content {
-  padding: 2rem 0;
-}
-
-.about-text p {
-  font-size: 1.3rem;
-  line-height: 2;
-  margin-bottom: 2rem;
-  font-weight: 300;
-  opacity: 0.9;
-}
-
-.about-text p:first-child {
-  font-size: 1.5rem;
-  font-style: italic;
-  color: #333;
-  margin-bottom: 3rem;
-}
-
 .about-section .section-title {
-  grid-column: 1 / -1;
-  text-align: left;
-  margin-bottom: 0;
+  display: none;
 }
 
-/* Exhibitions Section - Clean light design */
+/* Exhibitions Section - Interactive gallery layout */
 .exhibitions-section {
   background: #f5f5f0;
-  min-height: 100vh;
-  padding-top: 80px;
+  height: 100vh;
+  padding-top: 60px;
+  overflow: hidden;
 }
 
-.exhibitions-section .section-title {
+.exhibitions-wrapper {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  height: calc(100vh - 60px);
+  gap: 0;
+}
+
+.exhibitions-list-container {
+  padding: 3rem 2rem 3rem 5%;
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.exhibitions-list-container h2 {
+  font-size: 3rem;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 400;
+  font-style: italic;
+  margin-bottom: 2.5rem;
   color: #1a1a1a;
-  margin-bottom: 3rem;
-  padding: 3rem 2rem 0;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .exhibitions-list {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
-  padding-bottom: 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .exhibition-item {
-  text-align: left;
-  padding: 2.5rem;
-  background: rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  transition: all 0.4s ease;
+  padding: 1.5rem 1.5rem 1.5rem 1rem;
+  background: transparent;
+  border-left: 3px solid transparent;
+  transition: all 0.3s ease;
+  cursor: pointer;
   position: relative;
 }
 
-.exhibition-item::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 0;
-  background: #1a1a1a;
-  transition: height 0.4s ease;
+.exhibition-item:hover,
+.exhibition-item.active {
+  background: rgba(255, 255, 255, 0.5);
+  border-left-color: #1a1a1a;
 }
 
-.exhibition-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-  background: rgba(255, 255, 255, 0.8);
-}
-
-.exhibition-item:hover::before {
-  height: 100%;
+.exhibition-item.active {
+  background: rgba(255, 255, 255, 0.7);
 }
 
 .exhibition-name {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 500;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   font-family: 'Playfair Display', Georgia, serif;
   font-style: italic;
   color: #1a1a1a;
 }
 
 .exhibition-location {
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 400;
   opacity: 0.7;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.3rem;
   color: #333;
 }
 
 .exhibition-year {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 500;
   opacity: 0.5;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
   color: #666;
+}
+
+.exhibition-preview {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.exhibition-preview-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.exhibition-preview-image.active {
+  opacity: 1;
+}
+
+.exhibition-preview-image img {
+  width: 100%;
+  height: 70%;
+  object-fit: cover;
+}
+
+.exhibition-preview-info {
+  padding: 2rem 3rem;
+  background: rgba(255, 255, 255, 0.95);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.exhibition-preview-info h3 {
+  font-size: 1.8rem;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  margin-bottom: 1rem;
+  color: #1a1a1a;
+}
+
+.exhibition-preview-info p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #444;
+  font-weight: 300;
+}
+
+.exhibition-preview::before {
+  content: 'Select an exhibition';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  opacity: 0.15;
+  font-weight: 500;
+  z-index: 0;
+}
+
+.exhibitions-section .section-title {
+  display: none;
 }
 
 /* Commissions Section - Split layout with large image */
 .commissions-section {
   background: rgb(196, 196, 176);
-  min-height: 100vh;
+  height: 100vh;
   padding-top: 60px;
-  display: flex;
-  align-items: stretch;
+  overflow: hidden;
 }
 
 .commissions-section .section-title {
@@ -719,9 +814,9 @@ section {
 
 .commissions-wrapper {
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
+  grid-template-columns: 40% 60%;
   width: 100%;
-  min-height: calc(100vh - 60px);
+  height: calc(100vh - 60px);
 }
 
 .commissions-content {
@@ -799,74 +894,111 @@ section {
   object-fit: cover;
 }
 
-/* Contact Section */
+/* Contact Section - Centered dynamic layout */
 .contact-section {
-  background: rgb(196, 196, 176);
+  background: linear-gradient(135deg, rgb(196, 196, 176) 0%, rgba(220, 220, 200, 1) 100%);
+  height: 100vh;
+  padding-top: 60px;
+  overflow: hidden;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  padding: 6rem 2rem;
+  position: relative;
+}
+
+.contact-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.3), transparent 60%);
+  pointer-events: none;
 }
 
 .contact-section .section-title {
-  margin-bottom: 3rem;
+  position: absolute;
+  top: 5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 3rem;
 }
 
 .contact-content {
   text-align: center;
-  max-width: 600px;
+  max-width: 700px;
+  position: relative;
+  z-index: 1;
 }
 
 .contact-intro {
-  font-size: 1.2rem;
-  line-height: 1.8;
-  margin-bottom: 3rem;
+  font-size: 1.35rem;
+  line-height: 1.9;
+  margin-bottom: 4rem;
   font-weight: 300;
-  color: #444;
+  color: #333;
 }
 
 .contact-methods {
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
   margin-top: 2rem;
 }
 
 .contact-item {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  padding: 2rem;
-  background: rgba(255, 255, 255, 0.4);
-  border-radius: 4px;
-  transition: all 0.3s ease;
+  gap: 1.2rem;
+  padding: 3rem 2rem;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-item::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background: rgba(0, 0, 0, 0.03);
+  transition: height 0.4s ease;
 }
 
 .contact-item:hover {
-  background: rgba(255, 255, 255, 0.6);
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.7);
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+.contact-item:hover::before {
+  height: 100%;
 }
 
 .contact-label {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.2em;
   font-weight: 600;
-  opacity: 0.6;
-}
-
-.contact-link {
-  font-size: 1.5rem;
-  font-weight: 400;
-  transition: opacity 0.3s ease;
+  opacity: 0.5;
   color: #000;
 }
 
+.contact-link {
+  font-size: 1.6rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  color: #000;
+  position: relative;
+}
+
 .contact-link:hover {
-  opacity: 0.7;
+  transform: scale(1.05);
 }
 
 /* Lightbox */
@@ -1302,40 +1434,60 @@ section {
   /* About page responsive */
   .about-content {
     grid-template-columns: 1fr;
-    gap: 3rem;
-    padding: 3rem 1.5rem;
-  }
-
-  .about-image {
-    height: 400px;
-    order: 2;
   }
 
   .about-text-content {
-    order: 3;
+    padding: 3rem 2rem;
+  }
+
+  .about-text-content h2 {
+    font-size: 2.5rem;
+  }
+
+  .about-image {
+    min-height: 50vh;
   }
 
   .about-text p {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
   }
 
   .about-text p:first-child {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
 
   /* Exhibitions page responsive */
-  .exhibitions-list {
+  .exhibitions-wrapper {
     grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .exhibitions-list-container {
+    padding: 2rem 1.5rem;
+    max-height: 40vh;
+  }
+
+  .exhibitions-list-container h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .exhibition-preview {
+    min-height: 60vh;
+  }
+
+  .exhibition-preview-info {
     padding: 1.5rem;
   }
 
   /* Commissions page responsive */
   .commissions-wrapper {
     grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
   }
 
   .commissions-content {
-    padding: 3rem 1.5rem;
+    padding: 3rem 2rem;
   }
 
   .commissions-content h2 {
@@ -1347,7 +1499,16 @@ section {
   }
 
   .commissions-image {
-    min-height: 400px;
+    min-height: 50vh;
+  }
+
+  /* Contact page responsive */
+  .contact-methods {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-intro {
+    font-size: 1.15rem;
   }
 }
 

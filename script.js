@@ -175,6 +175,25 @@ window.addEventListener("DOMContentLoaded", function () {
   });
 
   // ============================================
+  // EXHIBITIONS INTERACTIVITY
+  // ============================================
+  document.querySelectorAll('.exhibition-item').forEach(item => {
+    item.addEventListener('click', function() {
+      const exhibitionIndex = this.getAttribute('data-exhibition');
+      
+      // Update active item
+      document.querySelectorAll('.exhibition-item').forEach(i => i.classList.remove('active'));
+      this.classList.add('active');
+      
+      // Update preview
+      document.querySelectorAll('.exhibition-preview-image').forEach(preview => {
+        preview.classList.remove('active');
+      });
+      document.querySelector(`[data-preview="${exhibitionIndex}"]`).classList.add('active');
+    });
+  });
+
+  // ============================================
   // FEATURED ARTWORK DETAIL VIEW
   // ============================================
   const artworkDetail = document.getElementById('artwork-detail');
